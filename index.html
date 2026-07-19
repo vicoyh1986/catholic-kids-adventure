@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An interactive, super child-friendly Catholic website exploring the Parables of Jesus and the Beatitudes with colorful storybooks, games, quizzes, and earned Saint badges!">
+  <meta name="author" content="vicoyh1986">
+  <title>Catholic Kids' Parables & Beatitudes Adventure!</title>
+  
+  <!-- Premium Typography and Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Bubble & Cloud Effects -->
+  <div class="sky-clouds" aria-hidden="true">
+    <div class="cloud cloud-1">☁️</div>
+    <div class="cloud cloud-2">☁️</div>
+    <div class="cloud cloud-3">☁️</div>
+    <div class="cloud cloud-4">☁️</div>
+  </div>
+
+  <!-- Audio elements for pleasant sounds -->
+  <audio id="audio-click" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
+  <audio id="audio-success" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-84.wav" preload="auto"></audio>
+  <audio id="audio-badge" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav" preload="auto"></audio>
+
+  <!-- Application Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="header-logo" id="logo-container">
+        <div class="cross-icon animate-bounce">
+          <svg viewBox="0 0 100 100" width="45" height="45">
+            <defs>
+              <linearGradient id="cross-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFD700" />
+                <stop offset="100%" stop-color="#FF8C00" />
+              </linearGradient>
+            </defs>
+            <!-- Beautiful Catholic Cross -->
+            <rect x="42" y="10" width="16" height="80" rx="8" fill="url(#cross-grad)" />
+            <rect x="20" y="32" width="60" height="16" rx="8" fill="url(#cross-grad)" />
+            <circle cx="50" cy="40" r="12" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="6,4" />
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Catholic Kids'</h1>
+          <span class="subtitle">Faith & Story Adventure 🌟</span>
+        </div>
+      </div>
+      
+      <!-- Top Score / Badge Tracker Counter for kids -->
+      <div class="user-badge-counter" id="badge-counter-top" title="Earned Badges">
+        <span class="badge-icon-top">🏆</span>
+        <span class="badge-count-text"><span id="badge-count-num">0</span> / 10 Badges</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="navigation-bar" aria-label="Main Navigation">
+      <button class="nav-tab active" id="tab-home" data-target="home-section" aria-selected="true" role="tab">
+        <span class="tab-emoji">🏠</span> Home
+      </button>
+      <button class="nav-tab" id="tab-parables" data-target="parables-section" aria-selected="false" role="tab">
+        <span class="tab-emoji">📖</span> Jesus' Parables
+      </button>
+      <button class="nav-tab" id="tab-beatitudes" data-target="beatitudes-section" aria-selected="false" role="tab">
+        <span class="tab-emoji">🌸</span> Beatitudes Meadow
+      </button>
+      <button class="nav-tab" id="tab-quiz" data-target="quiz-section" aria-selected="false" role="tab">
+        <span class="tab-emoji">🎮</span> Quiz Arena
+      </button>
+      <button class="nav-tab" id="tab-badges" data-target="badges-section" aria-selected="false" role="tab">
+        <span class="tab-emoji">🏅</span> My Badge Book
+      </button>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    
+    <!-- 1. HOME SECTION -->
+    <section id="home-section" class="tab-content-panel active" role="tabpanel">
+      <!-- Welcome Hero Card -->
+      <div class="hero-card">
+        <div class="hero-illustration">
+          <!-- Animated Good Shepherd and Sheep -->
+          <svg viewBox="0 0 200 200" width="160" height="160" class="shepherd-svg">
+            <defs>
+              <linearGradient id="sky-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#B3E5FC" />
+                <stop offset="100%" stop-color="#E1F5FE" />
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="90" fill="url(#sky-grad)" />
+            <!-- Gentle Hill -->
+            <path d="M 10 160 Q 100 120 190 160 L 190 200 L 10 200 Z" fill="#81C784" />
+            <!-- Friendly Little Sheep -->
+            <g class="bouncing-sheep">
+              <rect x="55" y="130" width="10" height="20" rx="3" fill="#5D4037" />
+              <rect x="75" y="130" width="10" height="20" rx="3" fill="#5D4037" />
+              <ellipse cx="70" cy="120" r="22" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" />
+              <circle cx="58" cy="120" r="15" fill="#FFFFFF" />
+              <!-- Sheep Face -->
+              <ellipse cx="50" cy="118" r="10" fill="#F5F5F5" />
+              <circle cx="47" cy="115" r="2" fill="#3E2723" />
+              <path d="M 44 122 Q 48 126 52 122" fill="none" stroke="#3E2723" stroke-width="2" stroke-linecap="round" />
+              <ellipse cx="40" cy="110" r="4" rx="2" ry="6" fill="#F5F5F5" transform="rotate(-30 40 110)" />
+            </g>
+            <!-- Standing Cross -->
+            <rect x="135" y="60" width="8" height="40" fill="#A1887F" rx="2" />
+            <rect x="124" y="70" width="30" height="8" fill="#A1887F" rx="2" />
+            <!-- Beautiful Sun -->
+            <circle cx="150" cy="40" r="15" fill="#FFF176" class="spinning-sun" />
+          </svg>
+        </div>
+        <div class="hero-text-content">
+          <span class="welcome-pill">Welcome, Little Friend of Jesus! 👋</span>
+          <h2>Explore the Stories & Blessings of Jesus!</h2>
+          <p>
+            Welcome to a special Catholic adventure land! Here, we will discover the beautiful **Parables** (the special stories Jesus told to teach us how to love) and the **Beatitudes** (the 8 secrets to true happiness that Jesus gave us on the mountaintop).
+          </p>
+          <p class="kid-quote">
+            <strong>St. Therese of Lisieux says:</strong> "God handles us like little children. He is always ready to scoop us up in His arms!" Let's start our journey today! 🌻
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" id="btn-start-parables">📖 Read a Parable!</button>
+            <button class="btn btn-secondary" id="btn-start-beatitudes">🌸 Explore the Meadow!</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Quest / Catholic Action of the Day -->
+      <div class="daily-quest-card">
+        <div class="quest-icon">😇</div>
+        <div class="quest-details">
+          <h3>Your Daily Holy Quest!</h3>
+          <p id="daily-quest-text">Loading your special mini-mission...</p>
+          <div class="quest-action-zone">
+            <button class="btn btn-success" id="btn-complete-quest">✅ I Completed My Quest!</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Highlight Sections -->
+      <div class="features-grid">
+        <div class="feat-card card-purple">
+          <span class="feat-emoji">⛪</span>
+          <h4>Catholic Angle</h4>
+          <p>Learn how Jesus' parables connect to the Holy Mass, the Sacraments, Confession, and the Saints!</p>
+        </div>
+        <div class="feat-card card-blue">
+          <span class="feat-emoji">🔊</span>
+          <h4>Read-To-Me Narrator</h4>
+          <p>Can't read all the words yet? Just click the audio companion button on any story to have it read out loud!</p>
+        </div>
+        <div class="feat-card card-gold">
+          <span class="feat-emoji">🏆</span>
+          <h4>Faith Badges</h4>
+          <p>Solve simple, interactive quizzes in the Arena to unlock beautiful Saint stickers in your personal Badge Book!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PARABLES SECTION -->
+    <section id="parables-section" class="tab-content-panel" role="tabpanel">
+      <div class="section-intro">
+        <h2>📖 The Parables of Jesus</h2>
+        <p class="intro-p">
+          Jesus loved to teach using **parables**—everyday stories about seeds, sheep, coins, and families that hold huge treasures of truth about God's Kingdom. Click any story card below to open the interactive storybook!
+        </p>
+      </div>
+
+      <!-- Grid of Parable Cards -->
+      <div class="parables-grid" id="parables-card-container">
+        <!-- Parable cards are dynamically generated in JS to allow easy management and interactive triggers -->
+      </div>
+    </section>
+
+    <!-- 3. BEATITUDES SECTION -->
+    <section id="beatitudes-section" class="tab-content-panel" role="tabpanel">
+      <div class="section-intro">
+        <h2>🌸 The Beatitudes Meadow</h2>
+        <p class="intro-p">
+          On a high, breezy mountain, Jesus sat down with His disciples and taught them the **Beatitudes**—the eight holy guidelines to true, bubbling joy in God's family.
+        </p>
+        <p class="meadow-hint animate-pulse">👇 Click on the flowers and butterflies in the meadow below to discover their beautiful secrets! 👇</p>
+      </div>
+
+      <!-- Interactive Meadow Playground -->
+      <div class="meadow-playground">
+        <div class="meadow-sky" aria-hidden="true">
+          <div class="meadow-sun">☀️</div>
+          <div class="meadow-rainbow">🌈</div>
+        </div>
+        <div class="meadow-hill">
+          <div class="flowers-grid" id="meadow-flowers-container">
+            <!-- Dynamic Beatitude Flowers will be injected here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. QUIZ SECTION -->
+    <section id="quiz-section" class="tab-content-panel" role="tabpanel">
+      <div class="section-intro">
+        <h2>🎮 The Faith Explorer Quiz Arena</h2>
+        <p class="intro-p">
+          Are you ready to test what you have learned? Choose a topic below to enter the Arena. Answer the questions correctly to earn beautiful Saint Stickers in your Badge Book!
+        </p>
+      </div>
+
+      <!-- Quiz Topic Selection -->
+      <div id="quiz-selection-screen">
+        <h3>Choose Your Adventure Topic:</h3>
+        <div class="quiz-topics-grid" id="quiz-topics-container">
+          <!-- Quiz topics loaded dynamically in JS -->
+        </div>
+      </div>
+
+      <!-- Active Quiz Interface (hidden by default) -->
+      <div id="quiz-active-screen" class="quiz-container-box hide">
+        <button class="btn btn-text-only" id="btn-exit-quiz">◀ Back to Selection</button>
+        
+        <div class="quiz-progress-bar-wrapper">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+        
+        <div class="quiz-question-box">
+          <span class="quiz-q-num" id="quiz-q-number">Question 1 of 3</span>
+          <h3 id="quiz-question-text">Question text goes here?</h3>
+          
+          <div class="quiz-options-list" id="quiz-options-list">
+            <!-- Answers buttons dynamic injection -->
+          </div>
+        </div>
+
+        <div class="quiz-feedback-banner hide" id="quiz-feedback">
+          <span class="feedback-icon" id="feedback-icon">🎉</span>
+          <p id="feedback-text">Splendid! You got it right!</p>
+          <button class="btn btn-primary" id="btn-next-question">Continue ▶</button>
+        </div>
+      </div>
+
+      <!-- Quiz Victory Screen (hidden by default) -->
+      <div id="quiz-victory-screen" class="quiz-container-box victory-box hide">
+        <div class="confetti-container" id="confetti-container"></div>
+        <span class="victory-crown">👑</span>
+        <h2>Incredible Job, Faith Hero!</h2>
+        <p id="victory-message">You answered all questions correctly!</p>
+        
+        <!-- Animated Badge Reward showcase -->
+        <div class="badge-reward-showcase">
+          <div class="badge-bubble-large" id="won-badge-container">
+            <!-- Large dynamic earned SVG badge will go here -->
+          </div>
+          <h4 id="won-badge-title">Good Samaritan Badge</h4>
+          <p id="won-badge-description">For learning about showing gentle love and helping neighbors!</p>
+        </div>
+
+        <button class="btn btn-primary btn-large" id="btn-finish-quiz">Put Badge in my Book! 🏅</button>
+      </div>
+    </section>
+
+    <!-- 5. BADGES SECTION -->
+    <section id="badges-section" class="tab-content-panel" role="tabpanel">
+      <div class="section-intro">
+        <h2>🏅 My Holy Sticker & Badge Book</h2>
+        <p class="intro-p">
+          Here are the holy badges you've earned on your adventure! Complete the quizzes in the **Quiz Arena** to light up all 10 stickers and fill your book with Saintly colors!
+        </p>
+      </div>
+
+      <div class="sticker-book-wrapper">
+        <div class="sticker-book-header">
+          <h3>Your Adventure Progress</h3>
+          <div class="progress-bar-large-wrapper">
+            <div class="progress-bar-large-fill" id="badge-book-progress-fill" style="width: 0%"></div>
+          </div>
+          <span class="progress-text-large"><span id="badge-book-count">0</span> of 10 Stickers Collected</span>
+        </div>
+
+        <div class="stickers-grid" id="stickers-container">
+          <!-- Badges dynamically injected in JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- REUSABLE MODAL DIALOGS -->
+  <!-- 1. PARABLE STORYBOOK DIALOG -->
+  <div class="modal-overlay hide" id="parable-modal" role="dialog" aria-modal="true" aria-labelledby="parable-modal-title">
+    <div class="modal-card storybook-card">
+      <button class="close-modal-btn" id="btn-close-parable-modal" aria-label="Close Storybook">✖</button>
+      
+      <div class="storybook-split-container">
+        <!-- Left Side: Graphic & Play controls -->
+        <div class="storybook-artwork-panel">
+          <div class="storybook-svg-box" id="modal-parable-svg">
+            <!-- Dynamic Inline SVG illustration -->
+          </div>
+          <div class="audio-control-bar">
+            <button class="btn btn-audio-narrator animate-pulse" id="btn-narrate">
+              <span class="speaker-icon">🔊</span> Read This Story To Me!
+            </button>
+            <button class="btn btn-audio-narrator hide" id="btn-stop-narrate" style="background: #e57373;">
+              <span class="speaker-icon">⏹</span> Stop Reading
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side: Content -->
+        <div class="storybook-text-panel">
+          <span class="bible-reference-tag" id="modal-parable-reference">Luke 15:3-7</span>
+          <h2 class="modal-story-title" id="parable-modal-title">The Lost Sheep</h2>
+          
+          <div class="modal-tab-nav" role="tablist">
+            <button class="story-tab active" id="story-subtab-tale" data-target="modal-tab-tale">📖 The Story</button>
+            <button class="story-tab" id="story-subtab-catholic" data-target="modal-tab-catholic">⛪ Catholic Connection</button>
+          </div>
+
+          <div class="modal-tab-content">
+            <!-- Tab 1: The Kid-friendly story -->
+            <div id="modal-tab-tale" class="subtab-panel active">
+              <p id="modal-parable-story" class="storybook-paragraphs">
+                Story content loaded here...
+              </p>
+            </div>
+            
+            <!-- Tab 2: Catholic explanation -->
+            <div id="modal-tab-catholic" class="subtab-panel">
+              <div class="catholic-lesson-box">
+                <h4>✝️ What does Jesus want us to know?</h4>
+                <p id="modal-parable-catholic-lesson">Catholic connection details...</p>
+                
+                <div class="sacrament-connection-badge">
+                  <span class="sacrament-icon">🥖</span>
+                  <div class="sacrament-text-box">
+                    <strong>Sacrament Connection:</strong>
+                    <span id="modal-parable-sacrament-text">Confession is like coming home...</span>
+                  </div>
+                </div>
+
+                <div class="prayer-box-mini">
+                  <strong>🙏 Simple Kid Prayer:</strong>
+                  <p id="modal-parable-prayer">Dear Jesus, thank you for being my good shepherd...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. BEATITUDE FLOWER DIALOG -->
+  <div class="modal-overlay hide" id="beatitude-modal" role="dialog" aria-modal="true" aria-labelledby="beatitude-modal-title">
+    <div class="modal-card beatitude-card-detail">
+      <button class="close-modal-btn" id="btn-close-beatitude-modal" aria-label="Close detail">✖</button>
+      
+      <div class="beatitude-detail-header">
+        <div class="beatitude-detail-emoji-box" id="beatitude-modal-emoji">🌸</div>
+        <h2 id="beatitude-modal-title">Blessed are the peacemakers...</h2>
+        <span class="beatitude-modal-sub" id="beatitude-modal-verse">Matthew 5:9</span>
+      </div>
+
+      <div class="beatitude-detail-body">
+        <div class="explanation-segment">
+          <h3>🧸 What does this mean?</h3>
+          <p id="beatitude-modal-explanation">Explanation text goes here...</p>
+        </div>
+
+        <div class="quest-segment">
+          <h3>🌟 Kid-Sized Catholic Action Quest</h3>
+          <p id="beatitude-modal-quest">Action challenge goes here...</p>
+        </div>
+
+        <div class="saint-segment">
+          <h3>🛡️ Saint Patron & Hero Connection</h3>
+          <div class="saint-hero-box">
+            <span class="saint-avatar" id="beatitude-modal-saint-emoji">🕊️</span>
+            <div class="saint-text">
+              <strong id="beatitude-modal-saint-name">St. Francis of Assisi</strong>
+              <p id="beatitude-modal-saint-desc">Saint description goes here...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="prayer-segment">
+          <h3>🙏 A Little Prayer for Me</h3>
+          <div class="prayer-card">
+            <p id="beatitude-modal-prayer">Prayer text goes here...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="main-footer">
+    <p>Made with love, prayers, and faith for <strong>vicoyh1986</strong> & <strong>vicoyh1986@gmail.com</strong> ❤️</p>
+    <p class="catholic-note">✝️ Catholic Kids' Faith Adventure is fully aligned with holy Catholic teachings, presenting Jesus' words with joy and reverence. ⛪</p>
+    <div class="footer-bottom-buttons">
+      <button class="btn btn-small" id="btn-deploy-info" style="margin-top: 10px; font-size: 0.8rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4);">
+        💻 How to publish this site on GitHub!
+      </button>
+    </div>
+  </footer>
+
+  <!-- Deployment instructions overlay -->
+  <div class="modal-overlay hide" id="deploy-modal" role="dialog" aria-modal="true">
+    <div class="modal-card deploy-guide-card">
+      <button class="close-modal-btn" id="btn-close-deploy-modal">✖</button>
+      <h2>💻 Publish this Site to Your GitHub!</h2>
+      <p>We've created a super simple PowerShell script for you! To publish this amazing site directly to your GitHub repository at <strong>vicoyh1986</strong>, follow these quick steps:</p>
+      
+      <ol class="deploy-steps-list">
+        <li>Open a PowerShell window.</li>
+        <li>Run the automated deployment script in this directory:
+          <pre><code>./deploy.ps1</code></pre>
+        </li>
+        <li>The script will guide you through:
+          <ul>
+            <li>Initializing a local Git repository.</li>
+            <li>Creating a repository on your GitHub account <strong>vicoyh1986</strong> using your email <strong>vicoyh1986@gmail.com</strong>.</li>
+            <li>Pushing all the assets, stylesheets, and interactive code.</li>
+            <li>Setting up GitHub Pages so kids can play online instantly!</li>
+          </ul>
+        </li>
+      </ol>
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn btn-primary" id="btn-close-deploy-ok">Got it, thanks! ⛪</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
