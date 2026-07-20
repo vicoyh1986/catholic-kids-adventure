@@ -915,19 +915,62 @@ function startNarration(text) {
   // Prepare text reading
   speechUtterance = new SpeechSynthesisUtterance(text);
   
-  // Try to find a kid-friendly, warm, clear english voice
-  const voices = window.speechSynthesis.getVoices();
-  let selectedVoice = voices.find(voice => voice.lang.includes("en-US") && voice.name.toLowerCase().includes("natural")) ||
-                      voices.find(voice => voice.lang.includes("en-US") || voice.lang.includes("en-GB")) ||
-                      voices[0];
+  // High-fidelity smart scoring algorithm for gentle, warm, natural female voices
+  const voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith("en"));
+  let bestVoice = null;
+  let highestScore = -1;
+  
+  voices.forEach(voice => {
+    const name = voice.name.toLowerCase();
+    let score = 0;
+    
+    // Prioritize child-friendly regional English
+    if (voice.lang.includes("en-US") || voice.lang.includes("en-GB") || voice.lang.includes("en-AU")) {
+      score += 15;
+    }
+    
+    // Premium Cloud-Based Natural Voices (Edge Natural/Online voices sound like real bedtime storytellers!)
+    if (name.includes("online") || name.includes("natural")) {
+      score += 45;
+    }
+    
+    // Target ultra-natural premium female voices specifically
+    if (name.includes("aria") || name.includes("jenny") || name.includes("sonia") || name.includes("libby") || name.includes("natasha")) {
+      score += 60; // Top-tier Edge premium natural female
+    } else if (name.includes("google us english") || name.includes("google uk english female")) {
+      score += 50; // Premium Google Chrome female
+    } else if (name.includes("samantha") || name.includes("karen") || name.includes("siri") || name.includes("premium")) {
+      score += 40; // Apple macOS/iOS friendly female
+    } else if (name.includes("zira") || name.includes("hazel") || name.includes("susan") || name.includes("heera")) {
+      score += 30; // Offline fallback female voices
+    } else if (name.includes("female") || name.includes("woman") || name.includes("girl") || name.includes("warm") || name.includes("gentle")) {
+      score += 20; // General female indicator
+    }
+    
+    // Strictly penalize robotic, deep, or standard male voices for a softer kid-friendly storytelling tone
+    if (name.includes("david") || name.includes("male") || name.includes("guy") || name.includes("george") || name.includes("ravi") || name.includes("mark") || name.includes("clara")) {
+      score -= 40;
+    }
+    
+    if (score > highestScore) {
+      highestScore = score;
+      bestVoice = voice;
+    }
+  });
+
+  // Fallback to any voice if no optimal English female voice is found
+  const selectedVoice = bestVoice || window.speechSynthesis.getVoices()[0];
                       
   if (selectedVoice) {
     speechUtterance.voice = selectedVoice;
+    console.log("Selected premium kid-friendly voice: " + selectedVoice.name + " (" + selectedVoice.lang + ")");
   }
   
-  // Rate: slightly slower for children
-  speechUtterance.rate = 0.9;
-  speechUtterance.pitch = 1.05; // Slightly higher pitch for positive kid vibe
+  // Rate: Set to a gentle, comforting 0.85 rate (slightly slower for clear understanding by kids)
+  speechUtterance.rate = 0.85;
+  // Pitch: Brighter and friendlier (slightly raised to 1.06)
+  speechUtterance.pitch = 1.06;
+
 
   speechUtterance.onend = () => {
     stopNarration();
