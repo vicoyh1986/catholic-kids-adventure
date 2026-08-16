@@ -553,7 +553,18 @@ const dailyQuests = [
   "Say a quick prayer for another child somewhere in the world who might be lonely today. 🗺️",
   "Use a quiet, gentle voice even if you are feeling a little bit frustrated or upset. 🌸",
   "Tell a family member 'Jesus loves you!' and give them a high five! 🖐️",
-  "Read or listen to one of Jesus' parables and tell someone else about the story! 📖"
+  "Read or listen to one of Jesus' parables and tell someone else about the story! 📖",
+  "Care for our shared home: put your litter in the bin after a family outing, school day, or parish visit. 🌏",
+  "With a parent or catechist, thank someone who helps your family, school, or parish today. 🌼",
+  "Pray for the people of every language and culture who make Singapore home. 🦁"
+];
+
+const catechistPrompts = [
+  "Where might Jesus be inviting us to show patience in our school, parish, or neighbourhood this week?",
+  "Who is someone we may not notice often, and how could we show that person God's love?",
+  "What would it look like to be a peacemaker when friends disagree?",
+  "How can our group care for the places and people we share each day?",
+  "Which part of today's story or Beatitude can we carry with us into the week?"
 ];
 
 
@@ -565,6 +576,11 @@ let currentQuestionIndex = 0;
 let userSelectedOption = null;
 let speechUtterance = null;
 let isSpeaking = false;
+let completedSingaporeMissions = JSON.parse(localStorage.getItem("catholic-singapore-missions")) || [];
+let discussionPromptIndex = 0;
+let soundGardenEnabled = localStorage.getItem("catholic-sound-garden-enabled") === "true";
+let soundGardenContext = null;
+let soundGardenTimer = null;
 
 
 // --- 3. DOM ELEMENT REFERENCES ---
@@ -629,16 +645,22 @@ const wonBadgeTitle = document.getElementById("won-badge-title");
 const wonBadgeDescription = document.getElementById("won-badge-description");
 const confettiContainer = document.getElementById("confetti-container");
 
-// Deploy Guide elements
-const btnDeployInfo = document.getElementById("btn-deploy-info");
-const deployModal = document.getElementById("deploy-modal");
-const btnCloseDeployModal = document.getElementById("btn-close-deploy-modal");
-const btnCloseDeployOk = document.getElementById("btn-close-deploy-ok");
+// Singapore Faith Trail elements
+const singaporeMissionButtons = document.querySelectorAll(".mission-complete-btn");
+const singaporeMissionCount = document.getElementById("singapore-mission-status");
+const singaporeMissionProgress = document.getElementById("singapore-mission-progress");
+const singaporeMissionProgressFill = document.getElementById("singapore-mission-progress-fill");
+const discussionPromptText = document.getElementById("discussion-prompt-text");
+const btnNextDiscussionPrompt = document.getElementById("btn-next-discussion-prompt");
+const btnPrintCatechistGuide = document.getElementById("btn-print-catechist-guide");
+const btnOpenSingaporeTrail = document.getElementById("btn-open-singapore-trail");
 
 // Audio players
 const audioClick = document.getElementById("audio-click");
 const audioSuccess = document.getElementById("audio-success");
 const audioBadge = document.getElementById("audio-badge");
+const btnSoundGarden = document.getElementById("btn-sound-garden");
+const soundGardenLabel = document.getElementById("sound-garden-label");
 
 
 // --- 4. INITIALIZATION ---
@@ -652,11 +674,17 @@ document.addEventListener("DOMContentLoaded", () => {
   renderQuizTopics();
   updateBadgeCounters();
   setupSpeechSynthesis();
-  setupDeployGuide();
+  setupSingaporeFaithTrail();
+  setupSoundGarden();
   
   // Connect home buttons to tabs
   document.getElementById("btn-start-parables").addEventListener("click", () => switchTab("tab-parables"));
   document.getElementById("btn-start-beatitudes").addEventListener("click", () => switchTab("tab-beatitudes"));
+  btnOpenSingaporeTrail.addEventListener("click", () => {
+    playSound("click");
+    switchTab("tab-singapore");
+    window.scrollTo({ top: 0, behavior: "auto" });
+  });
 });
 
 // Sound play helper with click/success sounds
@@ -675,10 +703,142 @@ function playSound(type) {
   } catch (e) {
     console.log("Audio playback failed or blocked: ", e);
   }
+
+  if (soundGardenEnabled) {
+    playSoundGardenTone(type);
+  }
 }
 
+// --- 5. OPTIONAL SOUND GARDEN ---
 
-// --- 5. NAVIGATION CONTROLLER ---
+function setupSoundGarden() {
+  if (!(window.AudioContext || window.webkitAudioContext)) {
+    soundGardenEnabled = false;
+    localStorage.setItem("catholic-sound-garden-enabled", "false");
+    btnSoundGarden.disabled = true;
+    soundGardenLabel.textContent = "Sound Garden unavailable";
+    return;
+  }
+
+  updateSoundGardenButton();
+  btnSoundGarden.addEventListener("click", () => {
+    setSoundGardenEnabled(!soundGardenEnabled);
+  });
+}
+
+function setSoundGardenEnabled(enabled) {
+  soundGardenEnabled = enabled;
+  localStorage.setItem("catholic-sound-garden-enabled", String(enabled));
+  updateSoundGardenButton();
+
+  if (!enabled) {
+    stopSoundGarden();
+    return;
+  }
+
+  const context = getSoundGardenContext();
+  resumeSoundGarden(context, () => {
+    playSoundGardenPhrase();
+    startSoundGarden();
+  });
+}
+
+function updateSoundGardenButton() {
+  btnSoundGarden.classList.toggle("is-active", soundGardenEnabled);
+  btnSoundGarden.setAttribute("aria-pressed", String(soundGardenEnabled));
+  btnSoundGarden.title = soundGardenEnabled
+    ? "Turn off gentle Sound Garden chimes"
+    : "Turn on gentle Sound Garden chimes";
+  soundGardenLabel.textContent = soundGardenEnabled
+    ? "Sound Garden: On"
+    : "Sound Garden: Off";
+}
+
+function getSoundGardenContext() {
+  if (!soundGardenContext) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    soundGardenContext = new AudioContextClass();
+  }
+
+  return soundGardenContext;
+}
+
+function resumeSoundGarden(context, onReady) {
+  if (context.state === "suspended") {
+    context.resume().then(onReady).catch(error => {
+      soundGardenEnabled = false;
+      localStorage.setItem("catholic-sound-garden-enabled", "false");
+      updateSoundGardenButton();
+      console.warn("Sound Garden could not start:", error);
+    });
+    return;
+  }
+
+  onReady();
+}
+
+function playSoundGardenTone(type) {
+  const context = getSoundGardenContext();
+  const tonePatterns = {
+    click: [659.25],
+    success: [523.25, 659.25, 783.99],
+    badge: [523.25, 659.25, 783.99, 1046.5]
+  };
+  const notes = tonePatterns[type] || tonePatterns.click;
+
+  resumeSoundGarden(context, () => {
+    const startAt = context.currentTime + 0.02;
+    notes.forEach((note, index) => {
+      playBellTone(context, note, startAt + (index * 0.11), 0.34, type === "badge" ? 0.075 : 0.055);
+    });
+    startSoundGarden();
+  });
+}
+
+function playSoundGardenPhrase() {
+  if (!soundGardenEnabled || document.hidden) return;
+
+  const context = getSoundGardenContext();
+  const notes = [523.25, 659.25, 783.99, 659.25];
+  const startAt = context.currentTime + 0.03;
+
+  notes.forEach((note, index) => {
+    playBellTone(context, note, startAt + (index * 0.22), 0.55, 0.032);
+  });
+}
+
+function playBellTone(context, frequency, startAt, duration, volume) {
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(frequency, startAt);
+  gain.gain.setValueAtTime(0.0001, startAt);
+  gain.gain.exponentialRampToValueAtTime(volume, startAt + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
+
+  oscillator.connect(gain);
+  gain.connect(context.destination);
+  oscillator.start(startAt);
+  oscillator.stop(startAt + duration + 0.04);
+}
+
+function startSoundGarden() {
+  if (soundGardenTimer || !soundGardenEnabled) return;
+
+  soundGardenTimer = window.setInterval(() => {
+    playSoundGardenPhrase();
+  }, 18000);
+}
+
+function stopSoundGarden() {
+  if (!soundGardenTimer) return;
+
+  window.clearInterval(soundGardenTimer);
+  soundGardenTimer = null;
+}
+
+// --- 6. NAVIGATION CONTROLLER ---
 
 function setupNavigation() {
   navTabs.forEach(tab => {
@@ -727,7 +887,7 @@ function switchTab(tabId) {
 }
 
 
-// --- 6. DAILY QUEST CONTROLLER ---
+// --- 7. DAILY QUEST CONTROLLER ---
 
 function loadDailyQuest() {
   // Use day of the year/month to rotate quest steadily, or random
@@ -764,7 +924,65 @@ function markQuestCompleted(isQuiet) {
 }
 
 
-// --- 7. PARABLES STORYBOOK CONTROLLER ---
+// --- 8. SINGAPORE FAITH TRAIL CONTROLLER ---
+
+function setupSingaporeFaithTrail() {
+  singaporeMissionButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      completeSingaporeMission(button.dataset.missionId);
+    });
+  });
+
+  btnNextDiscussionPrompt.addEventListener("click", () => {
+    playSound("click");
+    discussionPromptIndex = (discussionPromptIndex + 1) % catechistPrompts.length;
+    discussionPromptText.textContent = catechistPrompts[discussionPromptIndex];
+  });
+
+  btnPrintCatechistGuide.addEventListener("click", () => {
+    playSound("click");
+    window.print();
+  });
+
+  updateSingaporeMissionBoard();
+}
+
+function completeSingaporeMission(missionId) {
+  if (!missionId || completedSingaporeMissions.includes(missionId)) return;
+
+  completedSingaporeMissions.push(missionId);
+  localStorage.setItem("catholic-singapore-missions", JSON.stringify(completedSingaporeMissions));
+  playSound("success");
+  updateSingaporeMissionBoard();
+
+  if (completedSingaporeMissions.length === singaporeMissionButtons.length) {
+    createConfettiShower();
+  }
+}
+
+function updateSingaporeMissionBoard() {
+  const availableMissionIds = [...singaporeMissionButtons].map(button => button.dataset.missionId);
+  completedSingaporeMissions = completedSingaporeMissions.filter(missionId => availableMissionIds.includes(missionId));
+  localStorage.setItem("catholic-singapore-missions", JSON.stringify(completedSingaporeMissions));
+
+  const completedCount = completedSingaporeMissions.length;
+  const progressPercent = (completedCount / singaporeMissionButtons.length) * 100;
+  singaporeMissionProgressFill.style.width = `${progressPercent}%`;
+  singaporeMissionProgress.setAttribute("aria-valuenow", String(completedCount));
+  singaporeMissionCount.textContent = completedCount === singaporeMissionButtons.length
+    ? "All 3 missions tried - thank you for sharing Jesus' love!"
+    : `${completedCount} of ${singaporeMissionButtons.length} missions tried`;
+
+  singaporeMissionButtons.forEach(button => {
+    const isComplete = completedSingaporeMissions.includes(button.dataset.missionId);
+    button.disabled = isComplete;
+    button.textContent = isComplete ? "✅ Mission tried!" : "🌱 Try this mission";
+    button.closest(".mission-card").classList.toggle("is-complete", isComplete);
+  });
+}
+
+
+// --- 9. PARABLES STORYBOOK CONTROLLER ---
 
 function renderParables() {
   parablesCardContainer.innerHTML = "";
@@ -838,7 +1056,7 @@ btnCloseParableModal.onclick = () => {
 };
 
 
-// --- 8. BEATITUDES MEADOW CONTROLLER ---
+// --- 10. BEATITUDES MEADOW CONTROLLER ---
 
 function renderMeadow() {
   meadowFlowersContainer.innerHTML = "";
@@ -893,7 +1111,7 @@ btnCloseBeatitudeModal.onclick = () => {
 };
 
 
-// --- 9. "READ TO ME" VOICE SYNTHESIS COMPANION ---
+// --- 11. "READ TO ME" VOICE SYNTHESIS COMPANION ---
 
 function setupSpeechSynthesis() {
   // Check if browser supports Web Speech API
@@ -993,7 +1211,7 @@ function stopNarration() {
 }
 
 
-// --- 10. QUIZ ARENA CONTROLLER ---
+// --- 12. QUIZ ARENA CONTROLLER ---
 
 function renderQuizTopics() {
   quizTopicsContainer.innerHTML = "";
@@ -1151,7 +1369,7 @@ btnExitQuiz.onclick = () => {
 };
 
 
-// --- 11. BADGE BOOK DISPLAY ---
+// --- 13. BADGE BOOK DISPLAY ---
 
 function renderBadgeBook() {
   stickersContainer.innerHTML = "";
@@ -1187,7 +1405,7 @@ function updateBadgeCounters() {
 }
 
 
-// --- 12. CONFETTI ANIMATION ENGINE ---
+// --- 14. CONFETTI ANIMATION ENGINE ---
 
 function createConfettiShower() {
   if (!confettiContainer) return;
@@ -1212,24 +1430,4 @@ function createConfettiShower() {
     
     confettiContainer.appendChild(piece);
   }
-}
-
-
-// --- 13. DEPLOY GUIDE OVERLAY ---
-
-function setupDeployGuide() {
-  btnDeployInfo.onclick = () => {
-    playSound("click");
-    deployModal.classList.remove("hide");
-  };
-
-  btnCloseDeployModal.onclick = () => {
-    playSound("click");
-    deployModal.classList.add("hide");
-  };
-
-  btnCloseDeployOk.onclick = () => {
-    playSound("click");
-    deployModal.classList.add("hide");
-  };
 }

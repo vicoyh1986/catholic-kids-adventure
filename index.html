@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="An interactive, super child-friendly Catholic website exploring the Parables of Jesus and the Beatitudes with colorful storybooks, games, quizzes, and earned Saint badges!">
+  <meta name="description" content="A joyful Catholic faith adventure for children, families, and catechists in Singapore, exploring Jesus' parables, the Beatitudes, prayer, and everyday acts of love.">
   <meta name="author" content="vicoyh1986">
-  <title>Catholic Kids' Parables & Beatitudes Adventure!</title>
+  <meta name="theme-color" content="#4A148C">
+  <title>Catholic Kids' Singapore Faith Adventure</title>
   
   <!-- Premium Typography and Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,32 +50,42 @@
         </div>
         <div class="logo-text">
           <h1>Catholic Kids'</h1>
-          <span class="subtitle">Faith & Story Adventure 🌟</span>
+          <span class="subtitle">Singapore Faith Adventure 🌟</span>
         </div>
       </div>
       
-      <!-- Top Score / Badge Tracker Counter for kids -->
-      <div class="user-badge-counter" id="badge-counter-top" title="Earned Badges">
-        <span class="badge-icon-top">🏆</span>
-        <span class="badge-count-text"><span id="badge-count-num">0</span> / 10 Badges</span>
+      <div class="header-actions">
+        <button class="sound-garden-toggle" id="btn-sound-garden" type="button" aria-pressed="false" title="Turn on gentle Sound Garden chimes">
+          <span class="sound-garden-icon" aria-hidden="true">🌿</span>
+          <span id="sound-garden-label">Sound Garden: Off</span>
+        </button>
+
+        <!-- Top Score / Badge Tracker Counter for kids -->
+        <div class="user-badge-counter" id="badge-counter-top" title="Earned Badges">
+          <span class="badge-icon-top">🏆</span>
+          <span class="badge-count-text"><span id="badge-count-num">0</span> / 10 Badges</span>
+        </div>
       </div>
     </div>
 
     <!-- Navigation Tabs -->
-    <nav class="navigation-bar" aria-label="Main Navigation">
-      <button class="nav-tab active" id="tab-home" data-target="home-section" aria-selected="true" role="tab">
+    <nav class="navigation-bar" aria-label="Main Navigation" role="tablist">
+      <button class="nav-tab active" id="tab-home" data-target="home-section" aria-controls="home-section" aria-selected="true" role="tab">
         <span class="tab-emoji">🏠</span> Home
       </button>
-      <button class="nav-tab" id="tab-parables" data-target="parables-section" aria-selected="false" role="tab">
+      <button class="nav-tab" id="tab-parables" data-target="parables-section" aria-controls="parables-section" aria-selected="false" role="tab">
         <span class="tab-emoji">📖</span> Jesus' Parables
       </button>
-      <button class="nav-tab" id="tab-beatitudes" data-target="beatitudes-section" aria-selected="false" role="tab">
+      <button class="nav-tab" id="tab-beatitudes" data-target="beatitudes-section" aria-controls="beatitudes-section" aria-selected="false" role="tab">
         <span class="tab-emoji">🌸</span> Beatitudes Meadow
       </button>
-      <button class="nav-tab" id="tab-quiz" data-target="quiz-section" aria-selected="false" role="tab">
+      <button class="nav-tab" id="tab-singapore" data-target="singapore-section" aria-controls="singapore-section" aria-selected="false" role="tab">
+        <span class="tab-emoji">🦁</span> Singapore Faith Trail
+      </button>
+      <button class="nav-tab" id="tab-quiz" data-target="quiz-section" aria-controls="quiz-section" aria-selected="false" role="tab">
         <span class="tab-emoji">🎮</span> Quiz Arena
       </button>
-      <button class="nav-tab" id="tab-badges" data-target="badges-section" aria-selected="false" role="tab">
+      <button class="nav-tab" id="tab-badges" data-target="badges-section" aria-controls="badges-section" aria-selected="false" role="tab">
         <span class="tab-emoji">🏅</span> My Badge Book
       </button>
     </nav>
@@ -83,7 +94,7 @@
   <main class="main-content">
     
     <!-- 1. HOME SECTION -->
-    <section id="home-section" class="tab-content-panel active" role="tabpanel">
+    <section id="home-section" class="tab-content-panel active" role="tabpanel" aria-labelledby="tab-home">
       <!-- Welcome Hero Card -->
       <div class="hero-card">
         <div class="hero-illustration">
@@ -121,8 +132,9 @@
           <span class="welcome-pill">Welcome, Little Friend of Jesus! 👋</span>
           <h2>Explore the Stories & Blessings of Jesus!</h2>
           <p>
-            Welcome to a special Catholic adventure land! Here, we will discover the beautiful **Parables** (the special stories Jesus told to teach us how to love) and the **Beatitudes** (the 8 secrets to true happiness that Jesus gave us on the mountaintop).
+            Welcome to a special Catholic adventure land! Here, we will discover the beautiful <strong>Parables</strong> (the special stories Jesus told to teach us how to love) and the <strong>Beatitudes</strong> (the 8 secrets to true happiness that Jesus gave us on the mountaintop).
           </p>
+          <p class="singapore-welcome">🦁 Made for young disciples, families, and catechists in Singapore.</p>
           <p class="kid-quote">
             <strong>St. Therese of Lisieux says:</strong> "God handles us like little children. He is always ready to scoop us up in His arms!" Let's start our journey today! 🌻
           </p>
@@ -162,15 +174,20 @@
           <h4>Faith Badges</h4>
           <p>Solve simple, interactive quizzes in the Arena to unlock beautiful Saint stickers in your personal Badge Book!</p>
         </div>
+        <div class="feat-card card-green">
+          <span class="feat-emoji">🦁</span>
+          <h4>Singapore Faith Trail</h4>
+          <p>Practise Jesus' love at home, in school, at church, and around our shared neighbourhoods.</p>
+        </div>
       </div>
     </section>
 
     <!-- 2. PARABLES SECTION -->
-    <section id="parables-section" class="tab-content-panel" role="tabpanel">
+    <section id="parables-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-parables">
       <div class="section-intro">
         <h2>📖 The Parables of Jesus</h2>
         <p class="intro-p">
-          Jesus loved to teach using **parables**—everyday stories about seeds, sheep, coins, and families that hold huge treasures of truth about God's Kingdom. Click any story card below to open the interactive storybook!
+          Jesus loved to teach using <strong>parables</strong>—everyday stories about seeds, sheep, coins, and families that hold huge treasures of truth about God's Kingdom. Click any story card below to open the interactive storybook!
         </p>
       </div>
 
@@ -181,11 +198,11 @@
     </section>
 
     <!-- 3. BEATITUDES SECTION -->
-    <section id="beatitudes-section" class="tab-content-panel" role="tabpanel">
+    <section id="beatitudes-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-beatitudes">
       <div class="section-intro">
         <h2>🌸 The Beatitudes Meadow</h2>
         <p class="intro-p">
-          On a high, breezy mountain, Jesus sat down with His disciples and taught them the **Beatitudes**—the eight holy guidelines to true, bubbling joy in God's family.
+          On a high, breezy mountain, Jesus sat down with His disciples and taught them the <strong>Beatitudes</strong>—the eight holy guidelines to true, bubbling joy in God's family.
         </p>
         <p class="meadow-hint animate-pulse">👇 Click on the flowers and butterflies in the meadow below to discover their beautiful secrets! 👇</p>
       </div>
@@ -204,8 +221,125 @@
       </div>
     </section>
 
-    <!-- 4. QUIZ SECTION -->
-    <section id="quiz-section" class="tab-content-panel" role="tabpanel">
+    <!-- 4. SINGAPORE FAITH TRAIL SECTION -->
+    <section id="singapore-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-singapore">
+      <div class="section-intro">
+        <h2>🦁 Singapore Faith Trail</h2>
+        <p class="intro-p">
+          Jesus meets us in our ordinary days: at home, in school, in our parish, and in the places we share with our neighbours. Take one small step of love today!
+        </p>
+      </div>
+
+      <div class="singapore-trail-grid">
+        <article class="singapore-welcome-card">
+          <div class="singapore-crest" aria-hidden="true">🦁</div>
+          <div>
+            <span class="trail-eyebrow">A little faith trail for our island home</span>
+            <h3>Love grows when we notice our neighbours.</h3>
+            <p>Singapore's Catholic family is beautifully diverse. In our homes, schools, parishes, playgrounds, and shared neighbourhoods, we can reflect Jesus through kind words, patient hearts, and care for the people God places near us.</p>
+          </div>
+        </article>
+
+        <section class="mission-board" aria-labelledby="mission-board-title">
+          <div class="mission-board-heading">
+            <div>
+              <span class="trail-eyebrow">Our kampung mission board</span>
+              <h3 id="mission-board-title">Three small ways to love like Jesus</h3>
+              <p>Choose one mission with your family or catechist. Every small act of love matters!</p>
+            </div>
+            <div class="mission-progress-block">
+              <div class="mission-progress" id="singapore-mission-progress" role="progressbar" aria-label="Singapore faith trail missions completed" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0">
+                <div class="mission-progress-fill" id="singapore-mission-progress-fill"></div>
+              </div>
+              <p id="singapore-mission-status" aria-live="polite">0 of 3 missions tried</p>
+            </div>
+          </div>
+
+          <div class="mission-grid">
+            <article class="mission-card" data-mission-card="make-room">
+              <span class="mission-icon" aria-hidden="true">🚇</span>
+              <h4>Make room</h4>
+              <p>In a queue, classroom, bus, or MRT ride, choose patience instead of pushing. Look for one gentle way to make space for another person.</p>
+              <button class="btn btn-success mission-complete-btn" type="button" data-mission-id="make-room">🌱 Try this mission</button>
+            </article>
+            <article class="mission-card" data-mission-card="shared-home">
+              <span class="mission-icon" aria-hidden="true">🌏</span>
+              <h4>Care for our shared home</h4>
+              <p>Put your litter in the bin and help keep one place you visit clean. Thank God for the people who care for our shared spaces.</p>
+              <button class="btn btn-success mission-complete-btn" type="button" data-mission-id="shared-home">🌱 Try this mission</button>
+            </article>
+            <article class="mission-card" data-mission-card="say-thanks">
+              <span class="mission-icon" aria-hidden="true">🙏</span>
+              <h4>Say thank you</h4>
+              <p>With a parent or catechist, thank someone who helps your family or parish, such as a cleaner, teacher, security officer, or food-stall worker.</p>
+              <button class="btn btn-success mission-complete-btn" type="button" data-mission-id="say-thanks">🌱 Try this mission</button>
+            </article>
+          </div>
+        </section>
+
+        <div class="faith-trail-support-grid">
+          <section class="prompt-card" aria-labelledby="discussion-prompt-title">
+            <div>
+              <span class="trail-eyebrow">Catechist conversation spark</span>
+              <h3 id="discussion-prompt-title">Wonder together</h3>
+              <p id="discussion-prompt-text">Where might Jesus be inviting us to show patience in our school, parish, or neighbourhood this week?</p>
+            </div>
+            <button class="btn btn-secondary" id="btn-next-discussion-prompt" type="button">💡 Another prompt</button>
+          </section>
+
+          <section class="family-prayer-card" aria-labelledby="singapore-prayer-title">
+            <span class="trail-eyebrow">A prayer for our island home</span>
+            <h3 id="singapore-prayer-title">Pray together</h3>
+            <p>"Lord Jesus, bless the children, families, catechists, and neighbours in Singapore. Help us to be peacemakers, to care for one another, and to share Your love wherever we go. Amen."</p>
+          </section>
+        </div>
+
+        <section class="catechist-guide" aria-labelledby="catechist-guide-title">
+          <div class="catechist-guide-header">
+            <div>
+              <span class="trail-eyebrow">For catechists and families</span>
+              <h3 id="catechist-guide-title">A flexible 30-minute faith-sharing guide</h3>
+              <p>Use a story, a Beatitude, and one small mission to help children connect Sunday faith with everyday life.</p>
+            </div>
+            <button class="btn btn-text-only screen-only" id="btn-print-catechist-guide" type="button">🖨 Print guide</button>
+          </div>
+
+          <ol class="guide-steps">
+            <li>
+              <span class="guide-step-number">1</span>
+              <div><strong>Gather (3 min)</strong><p>Make the Sign of the Cross and welcome each child by name.</p></div>
+            </li>
+            <li>
+              <span class="guide-step-number">2</span>
+              <div><strong>Listen (8 min)</strong><p>Open one parable or Beatitude and invite children to notice what Jesus does or says.</p></div>
+            </li>
+            <li>
+              <span class="guide-step-number">3</span>
+              <div><strong>Wonder (6 min)</strong><p>Use the conversation prompt above. Accept short answers and give everyone a chance to speak.</p></div>
+            </li>
+            <li>
+              <span class="guide-step-number">4</span>
+              <div><strong>Act (8 min)</strong><p>Choose one Singapore Faith Trail mission that children can try safely with a parent, teacher, or catechist.</p></div>
+            </li>
+            <li>
+              <span class="guide-step-number">5</span>
+              <div><strong>Pray and send (5 min)</strong><p>Pray the island-home prayer together, then send children out with one kind action to remember.</p></div>
+            </li>
+          </ol>
+
+          <div class="adult-resource-row">
+            <p>For parish use, follow your parish's safeguarding practice and formation plan.</p>
+            <div class="adult-resource-links">
+              <a class="resource-link" href="https://www.catechesis.org.sg/" target="_blank" rel="noopener noreferrer">Office for Catechesis <span>Official Singapore resources ↗</span></a>
+              <a class="resource-link" href="https://parents.catholic.sg/" target="_blank" rel="noopener noreferrer">Parents.Catholic.sg <span>Family faith resources ↗</span></a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 5. QUIZ SECTION -->
+    <section id="quiz-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-quiz">
       <div class="section-intro">
         <h2>🎮 The Faith Explorer Quiz Arena</h2>
         <p class="intro-p">
@@ -265,12 +399,12 @@
       </div>
     </section>
 
-    <!-- 5. BADGES SECTION -->
-    <section id="badges-section" class="tab-content-panel" role="tabpanel">
+    <!-- 6. BADGES SECTION -->
+    <section id="badges-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-badges">
       <div class="section-intro">
         <h2>🏅 My Holy Sticker & Badge Book</h2>
         <p class="intro-p">
-          Here are the holy badges you've earned on your adventure! Complete the quizzes in the **Quiz Arena** to light up all 10 stickers and fill your book with Saintly colors!
+          Here are the holy badges you've earned on your adventure! Complete the quizzes in the <strong>Quiz Arena</strong> to light up all 10 stickers and fill your book with Saintly colors!
         </p>
       </div>
 
@@ -401,41 +535,14 @@
   </div>
 
   <footer class="main-footer">
-    <p>Made with love, prayers, and faith for <strong>vicoyh1986</strong> & <strong>vicoyh1986@gmail.com</strong> ❤️</p>
-    <p class="catholic-note">✝️ Catholic Kids' Faith Adventure is fully aligned with holy Catholic teachings, presenting Jesus' words with joy and reverence. ⛪</p>
+    <p>Made with care for young disciples, families, and catechists in Singapore. ❤️</p>
+    <p class="catholic-note">✝️ Use this joyful companion alongside your parish's catechetical guidance. ⛪</p>
     <div class="footer-bottom-buttons">
-      <button class="btn btn-small" id="btn-deploy-info" style="margin-top: 10px; font-size: 0.8rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4);">
-        💻 How to publish this site on GitHub!
+      <button class="btn btn-small footer-trail-button" id="btn-open-singapore-trail" type="button">
+        🦁 Open Singapore Faith Trail
       </button>
     </div>
   </footer>
-
-  <!-- Deployment instructions overlay -->
-  <div class="modal-overlay hide" id="deploy-modal" role="dialog" aria-modal="true">
-    <div class="modal-card deploy-guide-card">
-      <button class="close-modal-btn" id="btn-close-deploy-modal">✖</button>
-      <h2>💻 Publish this Site to Your GitHub!</h2>
-      <p>We've created a super simple PowerShell script for you! To publish this amazing site directly to your GitHub repository at <strong>vicoyh1986</strong>, follow these quick steps:</p>
-      
-      <ol class="deploy-steps-list">
-        <li>Open a PowerShell window.</li>
-        <li>Run the automated deployment script in this directory:
-          <pre><code>./deploy.ps1</code></pre>
-        </li>
-        <li>The script will guide you through:
-          <ul>
-            <li>Initializing a local Git repository.</li>
-            <li>Creating a repository on your GitHub account <strong>vicoyh1986</strong> using your email <strong>vicoyh1986@gmail.com</strong>.</li>
-            <li>Pushing all the assets, stylesheets, and interactive code.</li>
-            <li>Setting up GitHub Pages so kids can play online instantly!</li>
-          </ul>
-        </li>
-      </ol>
-      <div style="text-align: center; margin-top: 20px;">
-        <button class="btn btn-primary" id="btn-close-deploy-ok">Got it, thanks! ⛪</button>
-      </div>
-    </div>
-  </div>
 
   <script src="app.js"></script>
 </body>
