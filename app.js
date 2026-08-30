@@ -36,6 +36,7 @@ const ageProfiles = {
     parableCardCta: "✨ Open Storybook",
     meadowLabelPrefix: "Guideline",
     quizCardText: "Answer 3 quick questions about this topic to earn your badge and Ally Tokens!",
+    encouragementIcon: "🧸",
     successFeedback: "🎉 Beautiful work! You got it right!",
     encouragementFeedback: "🧸 Nice try. Let's learn and keep going together!",
     victoryMessage: "You finished the quiz with faith and courage!",
@@ -69,6 +70,7 @@ const ageProfiles = {
     parableCardCta: "✨ Read & Reflect",
     meadowLabelPrefix: "Beatitude",
     quizCardText: "Answer 3 quick questions about this topic to earn your badge and Ally Tokens.",
+    encouragementIcon: "🧭",
     successFeedback: "🎉 Strong answer. You got it right!",
     encouragementFeedback: "🧭 Good effort. Take the lesson with you and try the next one.",
     victoryMessage: "You completed the quiz and deepened your faith adventure!",
@@ -102,6 +104,7 @@ const ageProfiles = {
     parableCardCta: "✨ Read the Story",
     meadowLabelPrefix: "Beatitude",
     quizCardText: "Answer 3 review questions to earn your badge and Ally Tokens.",
+    encouragementIcon: "🕯",
     successFeedback: "🎉 Well done. That's correct.",
     encouragementFeedback: "🕯 Not quite. Stay with it and keep learning.",
     victoryMessage: "You completed the quiz and strengthened your understanding.",
@@ -1605,7 +1608,7 @@ function showQuestionFeedback(isCorrect) {
     feedbackIcon.innerText = "🎉";
     feedbackText.innerText = profile.successFeedback;
   } else {
-    feedbackIcon.innerText = profile.readingMode === "reflective" ? "🕯" : "🧸";
+    feedbackIcon.innerText = profile.encouragementIcon;
     feedbackText.innerText = profile.encouragementFeedback;
   }
   
