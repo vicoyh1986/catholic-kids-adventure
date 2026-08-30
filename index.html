@@ -65,6 +65,11 @@
           <span class="badge-icon-top">🏆</span>
           <span class="badge-count-text"><span id="badge-count-num">0</span> / 10 Badges</span>
         </div>
+
+        <div class="ally-token-counter" id="ally-token-counter-top" title="Ally Tokens earned">
+          <span class="ally-token-icon-top">🤝</span>
+          <span class="ally-token-count-text"><span id="ally-token-total">0</span> Ally Tokens</span>
+        </div>
       </div>
     </div>
 
@@ -129,14 +134,14 @@
           </svg>
         </div>
         <div class="hero-text-content">
-          <span class="welcome-pill">Welcome, Little Friend of Jesus! 👋</span>
-          <h2>Explore the Stories & Blessings of Jesus!</h2>
-          <p>
+          <span class="welcome-pill" id="hero-welcome-pill">Welcome, Little Friend of Jesus! 👋</span>
+          <h2 id="hero-title">Explore the Stories & Blessings of Jesus!</h2>
+          <p id="hero-description">
             Welcome to a special Catholic adventure land! Here, we will discover the beautiful <strong>Parables</strong> (the special stories Jesus told to teach us how to love) and the <strong>Beatitudes</strong> (the 8 secrets to true happiness that Jesus gave us on the mountaintop).
           </p>
           <p class="singapore-welcome">🦁 Made for young disciples, families, and catechists in Singapore.</p>
-          <p class="kid-quote">
-            <strong>St. Therese of Lisieux says:</strong> "God handles us like little children. He is always ready to scoop us up in His arms!" Let's start our journey today! 🌻
+          <p class="kid-quote" id="hero-catechist-quote">
+            <strong id="hero-quote-lead">St. Therese of Lisieux says:</strong> <span id="hero-quote-text">"God handles us like little children. He is always ready to scoop us up in His arms!" Let's start our journey today! 🌻</span>
           </p>
           <div class="hero-buttons">
             <button class="btn btn-primary" id="btn-start-parables">📖 Read a Parable!</button>
@@ -144,6 +149,27 @@
           </div>
         </div>
       </div>
+
+      <section class="age-journey-card" aria-labelledby="age-journey-title">
+        <div class="age-journey-header">
+          <div>
+            <span class="trail-eyebrow">Made for every stage</span>
+            <h3 id="age-journey-title">Choose an age path</h3>
+            <p>Pick the reading path that fits your child best. The stories, prompts, and reward screens will gently adjust.</p>
+          </div>
+        </div>
+        <div class="age-profile-button-row" role="group" aria-label="Choose an age path">
+          <button class="age-choice-btn active" type="button" data-age-profile="little-lambs">🐑 Ages 4–7</button>
+          <button class="age-choice-btn" type="button" data-age-profile="pathfinders">🧭 Ages 8–11</button>
+          <button class="age-choice-btn" type="button" data-age-profile="young-saints">🕯 Ages 12+</button>
+        </div>
+        <div class="age-profile-summary" aria-live="polite">
+          <span class="profile-summary-pill" id="selected-age-chip">Ages 4–7</span>
+          <h4 id="selected-age-title">Little Lambs</h4>
+          <p id="selected-age-description">Shorter, gentler reading with warm encouragement and simple missions.</p>
+          <p class="age-catechist-note"><strong id="selected-age-catechist">Inspired by St. John Bosco:</strong> <span id="selected-age-note">Lead with joy, kindness, and clear next steps.</span></p>
+        </div>
+      </section>
 
       <!-- Live Quest / Catholic Action of the Day -->
       <div class="daily-quest-card">
@@ -156,6 +182,25 @@
           </div>
         </div>
       </div>
+
+      <section class="ally-token-card" aria-labelledby="ally-token-title">
+        <div class="ally-token-card-header">
+          <div>
+            <span class="trail-eyebrow">Ally token allocation</span>
+            <h3 id="ally-token-title">Track every kind step</h3>
+            <p>Families and catechists can use Ally Tokens as a simple kindness score that celebrates effort, not pressure.</p>
+          </div>
+          <div class="ally-token-total-bubble">
+            <span class="ally-token-total-value" id="ally-token-home-total">0</span>
+            <span class="ally-token-total-label">Ally Tokens</span>
+          </div>
+        </div>
+        <ul class="token-allocation-list">
+          <li><span>Daily Holy Quest</span><strong>+5</strong></li>
+          <li><span>Singapore Faith Trail mission</span><strong>+8</strong></li>
+          <li><span>New quiz badge earned</span><strong>+12</strong></li>
+        </ul>
+      </section>
 
       <!-- Feature Highlight Sections -->
       <div class="features-grid">
@@ -186,7 +231,7 @@
     <section id="parables-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-parables">
       <div class="section-intro">
         <h2>📖 The Parables of Jesus</h2>
-        <p class="intro-p">
+        <p class="intro-p" id="parables-intro-text">
           Jesus loved to teach using <strong>parables</strong>—everyday stories about seeds, sheep, coins, and families that hold huge treasures of truth about God's Kingdom. Click any story card below to open the interactive storybook!
         </p>
       </div>
@@ -201,7 +246,7 @@
     <section id="beatitudes-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-beatitudes">
       <div class="section-intro">
         <h2>🌸 The Beatitudes Meadow</h2>
-        <p class="intro-p">
+        <p class="intro-p" id="beatitudes-intro-text">
           On a high, breezy mountain, Jesus sat down with His disciples and taught them the <strong>Beatitudes</strong>—the eight holy guidelines to true, bubbling joy in God's family.
         </p>
         <p class="meadow-hint animate-pulse">👇 Click on the flowers and butterflies in the meadow below to discover their beautiful secrets! 👇</p>
@@ -225,7 +270,7 @@
     <section id="singapore-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-singapore">
       <div class="section-intro">
         <h2>🦁 Singapore Faith Trail</h2>
-        <p class="intro-p">
+        <p class="intro-p" id="singapore-intro-text">
           Jesus meets us in our ordinary days: at home, in school, in our parish, and in the places we share with our neighbours. Take one small step of love today!
         </p>
       </div>
@@ -342,14 +387,14 @@
     <section id="quiz-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-quiz">
       <div class="section-intro">
         <h2>🎮 The Faith Explorer Quiz Arena</h2>
-        <p class="intro-p">
+        <p class="intro-p" id="quiz-intro-text">
           Are you ready to test what you have learned? Choose a topic below to enter the Arena. Answer the questions correctly to earn beautiful Saint Stickers in your Badge Book!
         </p>
       </div>
 
       <!-- Quiz Topic Selection -->
       <div id="quiz-selection-screen">
-        <h3>Choose Your Adventure Topic:</h3>
+        <h3 id="quiz-selection-title">Choose Your Adventure Topic:</h3>
         <div class="quiz-topics-grid" id="quiz-topics-container">
           <!-- Quiz topics loaded dynamically in JS -->
         </div>
@@ -403,18 +448,23 @@
     <section id="badges-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-badges">
       <div class="section-intro">
         <h2>🏅 My Holy Sticker & Badge Book</h2>
-        <p class="intro-p">
+        <p class="intro-p" id="badges-intro-text">
           Here are the holy badges you've earned on your adventure! Complete the quizzes in the <strong>Quiz Arena</strong> to light up all 10 stickers and fill your book with Saintly colors!
         </p>
       </div>
 
       <div class="sticker-book-wrapper">
         <div class="sticker-book-header">
-          <h3>Your Adventure Progress</h3>
+          <h3 id="badge-book-heading">Your Adventure Progress</h3>
           <div class="progress-bar-large-wrapper">
             <div class="progress-bar-large-fill" id="badge-book-progress-fill" style="width: 0%"></div>
           </div>
           <span class="progress-text-large"><span id="badge-book-count">0</span> of 10 Stickers Collected</span>
+        </div>
+
+        <div class="badge-reward-summary">
+          <span class="badge-reward-summary-label">🤝 Ally Tokens earned</span>
+          <strong id="ally-token-badge-total">0</strong>
         </div>
 
         <div class="stickers-grid" id="stickers-container">
@@ -460,9 +510,9 @@
           <div class="modal-tab-content">
             <!-- Tab 1: The Kid-friendly story -->
             <div id="modal-tab-tale" class="subtab-panel active">
-              <p id="modal-parable-story" class="storybook-paragraphs">
-                Story content loaded here...
-              </p>
+              <div id="modal-parable-story" class="storybook-paragraphs">
+                <p>Story content loaded here...</p>
+              </div>
             </div>
             
             <!-- Tab 2: Catholic explanation -->

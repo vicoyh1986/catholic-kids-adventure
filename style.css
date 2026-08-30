@@ -68,6 +68,21 @@ body {
   position: relative;
 }
 
+body[data-age-profile="little-lambs"] {
+  --profile-accent: #F06292;
+  --profile-surface: #FFF1F7;
+}
+
+body[data-age-profile="pathfinders"] {
+  --profile-accent: #4FC3F7;
+  --profile-surface: #EEF8FF;
+}
+
+body[data-age-profile="young-saints"] {
+  --profile-accent: #81C784;
+  --profile-surface: #F1F8E9;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Fredoka', sans-serif;
   font-weight: 700;
@@ -225,6 +240,24 @@ h1, h2, h3, h4, h5, h6 {
 
 .user-badge-counter:hover {
   transform: scale(1.1) rotate(-2deg);
+}
+
+.ally-token-counter {
+  background: #FFF8E1;
+  border: 2px solid #FFB300;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 10px rgba(255, 179, 0, 0.18);
+  color: #8D6E00;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  padding: 8px 16px;
+}
+
+.ally-token-icon-top {
+  font-size: 1.1rem;
 }
 
 /* Navigation tabs bar */
@@ -399,6 +432,18 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 30px;
 }
 
+body[data-age-profile="little-lambs"] .hero-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF8FB 100%);
+}
+
+body[data-age-profile="pathfinders"] .hero-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F2FBFF 100%);
+}
+
+body[data-age-profile="young-saints"] .hero-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F6FCF5 100%);
+}
+
 .hero-illustration {
   flex-shrink: 0;
   display: flex;
@@ -503,6 +548,141 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes shineQuest {
   0% { box-shadow: 0 8px 0px #D7CCC8; }
   100% { box-shadow: 0 8px 18px rgba(255, 179, 0, 0.4), var(--shadow-3d); }
+}
+
+.age-journey-card,
+.ally-token-card {
+  background: #FFFFFF;
+  border: 4px solid var(--text-main);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-3d);
+  margin-bottom: 30px;
+  padding: 28px;
+}
+
+.age-journey-header p,
+.ally-token-card-header p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.age-profile-button-row {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 22px 0 18px;
+}
+
+.age-choice-btn {
+  background: #FAF8F5;
+  border: 3px solid var(--text-main);
+  border-radius: var(--radius-inner);
+  color: var(--text-main);
+  cursor: pointer;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 16px 18px;
+  transition: var(--bounce-transition);
+}
+
+.age-choice-btn:hover,
+.age-choice-btn.active {
+  background: var(--profile-surface, #FFF8FB);
+  border-color: var(--profile-accent, var(--primary));
+  box-shadow: 0 8px 18px rgba(79, 195, 247, 0.12);
+  transform: translateY(-3px);
+}
+
+.age-profile-summary {
+  background: var(--profile-surface, #FFF8FB);
+  border: 3px solid var(--profile-accent, var(--primary));
+  border-radius: var(--radius-inner);
+  padding: 20px;
+}
+
+.profile-summary-pill {
+  background: #FFFFFF;
+  border-radius: var(--radius-pill);
+  color: var(--profile-accent, var(--primary-hover));
+  display: inline-block;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding: 6px 14px;
+}
+
+.age-profile-summary h4 {
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+}
+
+.age-profile-summary p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.age-catechist-note {
+  margin-top: 12px;
+}
+
+.ally-token-card {
+  background: linear-gradient(135deg, #FFFDF3 0%, #FFF8E1 100%);
+}
+
+.ally-token-card-header {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.ally-token-total-bubble {
+  align-items: center;
+  background: #FFFFFF;
+  border: 3px solid #FFB300;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  padding: 20px 18px;
+}
+
+.ally-token-total-value {
+  color: #E65100;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.ally-token-total-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.token-allocation-list {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin-top: 20px;
+}
+
+.token-allocation-list li {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid #FFE082;
+  border-radius: var(--radius-inner);
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 16px;
+}
+
+.token-allocation-list strong {
+  color: #E65100;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.15rem;
 }
 
 .quest-icon {
@@ -1405,6 +1585,29 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 35px;
 }
 
+.badge-reward-summary {
+  align-items: center;
+  background: #FFF8E1;
+  border: 3px solid #FFB300;
+  border-radius: var(--radius-inner);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 16px 18px;
+}
+
+.badge-reward-summary-label {
+  color: var(--text-muted);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+}
+
+.badge-reward-summary strong {
+  color: #E65100;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.55rem;
+}
+
 .sticker-book-header h3 {
   font-size: 1.6rem;
   margin-bottom: 12px;
@@ -1685,6 +1888,10 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-main);
 }
 
+.storybook-paragraphs p + p {
+  margin-top: 1rem;
+}
+
 /* Highlight style during narration reading */
 .speech-highlight {
   background: #FFF9C4;
@@ -1923,6 +2130,11 @@ h1, h2, h3, h4, h5, h6 {
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  .ally-token-counter {
+    justify-content: center;
+    width: 100%;
+  }
   
   .storybook-split-container {
     flex-direction: column;
@@ -1954,6 +2166,10 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
   }
 
+  .ally-token-card-header {
+    grid-template-columns: 1fr;
+  }
+
   .singapore-welcome-card {
     text-align: center;
   }
@@ -1964,12 +2180,20 @@ h1, h2, h3, h4, h5, h6 {
 
   .mission-board-heading,
   .mission-grid,
-  .faith-trail-support-grid {
+  .faith-trail-support-grid,
+  .age-profile-button-row {
     grid-template-columns: 1fr;
   }
 
   .prompt-card .btn {
     width: 100%;
+  }
+
+  .badge-reward-summary,
+  .token-allocation-list li {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
   }
 }
 

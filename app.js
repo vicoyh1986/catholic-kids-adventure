@@ -9,6 +9,153 @@
 
 // --- 1. DATA STRUCTURES ---
 
+const ageProfiles = {
+  "little-lambs": {
+    chip: "Ages 4–7",
+    label: "Little Lambs",
+    heroEyebrow: "Welcome, Little Friend of Jesus! 👋",
+    heroTitle: "Explore Jesus' Stories One Gentle Step at a Time",
+    heroDescription: "Welcome to a joyful Catholic adventure. We will hear Jesus' stories, discover the Beatitudes, pray little prayers, and try one kind mission at a time.",
+    quoteLead: "Inspired by St. John Bosco:",
+    quoteText: "\"Teach with joy, kindness, and short steps that help every child feel loved.\"",
+    summary: "Shorter, gentler reading with warm encouragement and simple missions.",
+    catechistLead: "Inspired by St. John Bosco:",
+    catechistNote: "Lead with joy, kindness, and clear next steps.",
+    parablesIntro: "Jesus taught with simple stories about shepherds, seeds, and families. Open any storybook to read it in words that fit this age.",
+    beatitudesIntro: "Jesus gives us eight beautiful blessings. Explore the meadow for gentle explanations and kind actions children can try right away.",
+    singaporeIntro: "Take one small step of love at home, in school, at church, or in the neighbourhood today.",
+    quizIntro: "Choose a short quiz to remember what Jesus teaches and earn badges and Ally Tokens.",
+    badgesIntro: "Badges and Ally Tokens celebrate each kind and faithful step along the way.",
+    parableButtonLabel: "📖 Start a Story",
+    beatitudeButtonLabel: "🌸 Visit the Meadow",
+    quizSelectionTitle: "Choose a gentle challenge:",
+    badgeBookHeading: "Your Joyful Progress",
+    narratorLabel: "🔊 Read This Story Gently",
+    storyTabLabel: "📖 Story Time",
+    catholicTabLabel: "⛪ Jesus' Message",
+    parableCardCta: "✨ Open Storybook",
+    meadowLabelPrefix: "Guideline",
+    quizCardText: "Answer 3 quick questions about this topic to earn your badge and Ally Tokens!",
+    successFeedback: "🎉 Beautiful work! You got it right!",
+    encouragementFeedback: "🧸 Nice try. Let's learn and keep going together!",
+    victoryMessage: "You finished the quiz with faith and courage!",
+    readingMode: "playful",
+    narrationRate: 0.82,
+    narrationPitch: 1.08
+  },
+  pathfinders: {
+    chip: "Ages 8–11",
+    label: "Pathfinders",
+    heroEyebrow: "Welcome, Faith Explorer! 👋",
+    heroTitle: "Discover How Jesus' Stories Shape Everyday Life",
+    heroDescription: "Step into a Catholic adventure shaped for growing readers. Explore Jesus' parables, the Beatitudes, and real-life missions that connect faith with daily choices.",
+    quoteLead: "Inspired by St. Elizabeth Ann Seton:",
+    quoteText: "\"Form the heart with clarity, patience, and trust in God's grace.\"",
+    summary: "Clearer reading, stronger connections, and practical missions for growing disciples.",
+    catechistLead: "Inspired by St. Elizabeth Ann Seton:",
+    catechistNote: "Build understanding with steady encouragement and meaningful habits.",
+    parablesIntro: "Jesus used everyday scenes to reveal the Kingdom of God. Open a story to see what it meant then and how it still shapes life now.",
+    beatitudesIntro: "The Beatitudes are Jesus' map for true joy. Explore each one with clearer meaning, action, and saintly example.",
+    singaporeIntro: "Notice where Jesus meets you in school, family life, parish life, and shared community spaces.",
+    quizIntro: "Choose a topic, check your understanding, and earn badges and Ally Tokens for each new win.",
+    badgesIntro: "Your badges and Ally Tokens show how much of the journey you have explored.",
+    parableButtonLabel: "📖 Open the Storybooks",
+    beatitudeButtonLabel: "🌸 Explore the Beatitudes",
+    quizSelectionTitle: "Choose your next faith challenge:",
+    badgeBookHeading: "Your Faith Progress",
+    narratorLabel: "🔊 Read This Story Aloud",
+    storyTabLabel: "📖 The Story",
+    catholicTabLabel: "⛪ Catholic Connection",
+    parableCardCta: "✨ Read & Reflect",
+    meadowLabelPrefix: "Beatitude",
+    quizCardText: "Answer 3 quick questions about this topic to earn your badge and Ally Tokens.",
+    successFeedback: "🎉 Strong answer. You got it right!",
+    encouragementFeedback: "🧭 Good effort. Take the lesson with you and try the next one.",
+    victoryMessage: "You completed the quiz and deepened your faith adventure!",
+    readingMode: "balanced",
+    narrationRate: 0.9,
+    narrationPitch: 1
+  },
+  "young-saints": {
+    chip: "Ages 12+",
+    label: "Young Saints",
+    heroEyebrow: "Welcome, Young Disciple! 👋",
+    heroTitle: "Read, Reflect, and Live the Gospel with Purpose",
+    heroDescription: "This path offers more natural reading for older kids and teens, while keeping the experience warm, prayerful, and faithful to Catholic teaching.",
+    quoteLead: "Inspired by Venerable Fulton Sheen:",
+    quoteText: "\"Great catechesis speaks to the mind, moves the heart, and leads to action.\"",
+    summary: "More natural reading, thoughtful reflection, and a clearer link between Scripture and discipleship.",
+    catechistLead: "Inspired by Venerable Fulton Sheen:",
+    catechistNote: "Connect truth, imagination, and action in a way that respects older readers.",
+    parablesIntro: "Jesus' parables invite reflection, conversion, and action. Open a story to read it in a more natural voice for older readers.",
+    beatitudesIntro: "The Beatitudes are a demanding and beautiful path to holiness. Explore each one with thoughtful explanation and concrete application.",
+    singaporeIntro: "Look for places where faith can become witness: at home, online, at school, in parish life, and in public spaces.",
+    quizIntro: "Choose a topic, test your understanding, and collect badges and Ally Tokens as signs of steady growth.",
+    badgesIntro: "Badges and Ally Tokens highlight faithful effort, reflection, and follow-through.",
+    parableButtonLabel: "📖 Read a Gospel Story",
+    beatitudeButtonLabel: "🌸 Reflect in the Meadow",
+    quizSelectionTitle: "Choose a topic to review:",
+    badgeBookHeading: "Your Disciple Progress",
+    narratorLabel: "🔊 Listen to the Reading",
+    storyTabLabel: "📖 Gospel Story",
+    catholicTabLabel: "⛪ Faith Connection",
+    parableCardCta: "✨ Read the Story",
+    meadowLabelPrefix: "Beatitude",
+    quizCardText: "Answer 3 review questions to earn your badge and Ally Tokens.",
+    successFeedback: "🎉 Well done. That's correct.",
+    encouragementFeedback: "🕯 Not quite. Stay with it and keep learning.",
+    victoryMessage: "You completed the quiz and strengthened your understanding.",
+    readingMode: "reflective",
+    narrationRate: 0.96,
+    narrationPitch: 0.98
+  }
+};
+
+const ALLY_TOKEN_AWARDS = {
+  dailyQuest: 5,
+  singaporeMission: 8,
+  quizBadge: 12
+};
+
+const balancedReadingReplacements = [
+  [/giant hug/gi, "big hug"],
+  [/giant crash/gi, "big crash"],
+  [/giant tree/gi, "great tree"],
+  [/giant party/gi, "great celebration"],
+  [/whole wide world/gi, "world"],
+  [/yummy/gi, "good"],
+  [/cozy/gi, "safe"],
+  [/sweet kindness/gi, "real kindness"],
+  [/sweet little/gi, "small"],
+  [/super fast/gi, "quickly"],
+  [/glittering treasures/gi, "precious gifts"],
+  [/cute/gi, "kind"],
+  [/messy pigs/gi, "pigs"],
+  [/big happy feast/gi, "great feast"],
+  [/giant castle of grace/gi, "strong home of grace"],
+  [/huge love/gi, "great love"],
+  [/giant smile/gi, "bright smile"],
+  [/little child of God/gi, "beloved child of God"]
+];
+
+const reflectiveReadingReplacements = [
+  ...balancedReadingReplacements,
+  [/tiny seed/gi, "small seed"],
+  [/fluffy white sheep/gi, "sheep"],
+  [/little sheep/gi, "lost sheep"],
+  [/special stories/gi, "stories"],
+  [/special mini-mission/gi, "daily mission"],
+  [/warm hugs/gi, "comfort"],
+  [/soft love/gi, "gentle love"],
+  [/silly things/gi, "foolish things"],
+  [/giant mountain of money/gi, "an enormous debt"],
+  [/beautiful, glittering treasure/gi, "great treasure"],
+  [/happy and open heart/gi, "open heart"],
+  [/sweet smiles/gi, "peace"],
+  [/holy courage/gi, "courage"],
+  [/the whole world/gi, "the world"]
+];
+
 // A. The 10 Catholic Parables for Kids
 const parablesData = [
   {
@@ -581,6 +728,9 @@ let discussionPromptIndex = 0;
 let soundGardenEnabled = localStorage.getItem("catholic-sound-garden-enabled") === "true";
 let soundGardenContext = null;
 let soundGardenTimer = null;
+let selectedAgeProfileId = localStorage.getItem("catholic-age-profile") || "little-lambs";
+let allyTokens = Number(localStorage.getItem("catholic-ally-tokens")) || 0;
+let awardedTokenEvents = JSON.parse(localStorage.getItem("catholic-ally-token-events")) || {};
 
 
 // --- 3. DOM ELEMENT REFERENCES ---
@@ -593,6 +743,27 @@ const quizTopicsContainer = document.getElementById("quiz-topics-container");
 const badgeCountNum = document.getElementById("badge-count-num");
 const badgeBookCount = document.getElementById("badge-book-count");
 const badgeBookProgressFill = document.getElementById("badge-book-progress-fill");
+const allyTokenTotal = document.getElementById("ally-token-total");
+const allyTokenHomeTotal = document.getElementById("ally-token-home-total");
+const allyTokenBadgeTotal = document.getElementById("ally-token-badge-total");
+const heroWelcomePill = document.getElementById("hero-welcome-pill");
+const heroTitle = document.getElementById("hero-title");
+const heroDescription = document.getElementById("hero-description");
+const heroQuoteLead = document.getElementById("hero-quote-lead");
+const heroQuoteText = document.getElementById("hero-quote-text");
+const ageChoiceButtons = document.querySelectorAll(".age-choice-btn");
+const selectedAgeChip = document.getElementById("selected-age-chip");
+const selectedAgeTitle = document.getElementById("selected-age-title");
+const selectedAgeDescription = document.getElementById("selected-age-description");
+const selectedAgeCatechist = document.getElementById("selected-age-catechist");
+const selectedAgeNote = document.getElementById("selected-age-note");
+const parablesIntroText = document.getElementById("parables-intro-text");
+const beatitudesIntroText = document.getElementById("beatitudes-intro-text");
+const singaporeIntroText = document.getElementById("singapore-intro-text");
+const quizIntroText = document.getElementById("quiz-intro-text");
+const badgesIntroText = document.getElementById("badges-intro-text");
+const quizSelectionTitle = document.getElementById("quiz-selection-title");
+const badgeBookHeading = document.getElementById("badge-book-heading");
 
 // Quest elements
 const dailyQuestText = document.getElementById("daily-quest-text");
@@ -643,6 +814,7 @@ const btnFinishQuiz = document.getElementById("btn-finish-quiz");
 const wonBadgeContainer = document.getElementById("won-badge-container");
 const wonBadgeTitle = document.getElementById("won-badge-title");
 const wonBadgeDescription = document.getElementById("won-badge-description");
+const victoryMessage = document.getElementById("victory-message");
 const confettiContainer = document.getElementById("confetti-container");
 
 // Singapore Faith Trail elements
@@ -661,18 +833,20 @@ const audioSuccess = document.getElementById("audio-success");
 const audioBadge = document.getElementById("audio-badge");
 const btnSoundGarden = document.getElementById("btn-sound-garden");
 const soundGardenLabel = document.getElementById("sound-garden-label");
+const storySubtabTale = document.getElementById("story-subtab-tale");
+const storySubtabCatholic = document.getElementById("story-subtab-catholic");
 
 
 // --- 4. INITIALIZATION ---
 
 document.addEventListener("DOMContentLoaded", () => {
+  syncLegacyAllyTokens();
+  setupAgeAdventure();
   setupNavigation();
-  loadDailyQuest();
-  renderParables();
-  renderMeadow();
+  applyAgeProfile(selectedAgeProfileId);
   renderBadgeBook();
-  renderQuizTopics();
   updateBadgeCounters();
+  updateAllyTokenDisplays();
   setupSpeechSynthesis();
   setupSingaporeFaithTrail();
   setupSoundGarden();
@@ -686,6 +860,124 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "auto" });
   });
 });
+
+function getActiveAgeProfile() {
+  return ageProfiles[selectedAgeProfileId] || ageProfiles["little-lambs"];
+}
+
+function setupAgeAdventure() {
+  ageChoiceButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      playSound("click");
+      setAgeProfile(button.dataset.ageProfile);
+    });
+  });
+}
+
+function setAgeProfile(profileId) {
+  if (!ageProfiles[profileId]) return;
+  selectedAgeProfileId = profileId;
+  localStorage.setItem("catholic-age-profile", profileId);
+  applyAgeProfile(profileId);
+}
+
+function applyAgeProfile(profileId) {
+  const profile = ageProfiles[profileId] || ageProfiles["little-lambs"];
+  document.body.dataset.ageProfile = profileId;
+
+  ageChoiceButtons.forEach(button => {
+    button.classList.toggle("active", button.dataset.ageProfile === profileId);
+  });
+
+  heroWelcomePill.textContent = profile.heroEyebrow;
+  heroTitle.textContent = profile.heroTitle;
+  heroDescription.textContent = profile.heroDescription;
+  heroQuoteLead.textContent = profile.quoteLead;
+  heroQuoteText.textContent = profile.quoteText;
+  selectedAgeChip.textContent = profile.chip;
+  selectedAgeTitle.textContent = profile.label;
+  selectedAgeDescription.textContent = profile.summary;
+  selectedAgeCatechist.textContent = profile.catechistLead;
+  selectedAgeNote.textContent = profile.catechistNote;
+  parablesIntroText.textContent = profile.parablesIntro;
+  beatitudesIntroText.textContent = profile.beatitudesIntro;
+  singaporeIntroText.textContent = profile.singaporeIntro;
+  quizIntroText.textContent = profile.quizIntro;
+  badgesIntroText.textContent = profile.badgesIntro;
+  quizSelectionTitle.textContent = profile.quizSelectionTitle;
+  badgeBookHeading.textContent = profile.badgeBookHeading;
+  btnNarrate.innerHTML = `<span class="speaker-icon">🔊</span> ${profile.narratorLabel}`;
+  storySubtabTale.textContent = profile.storyTabLabel;
+  storySubtabCatholic.textContent = profile.catholicTabLabel;
+  document.getElementById("btn-start-parables").textContent = profile.parableButtonLabel;
+  document.getElementById("btn-start-beatitudes").textContent = profile.beatitudeButtonLabel;
+
+  loadDailyQuest();
+  renderParables();
+  renderMeadow();
+  renderQuizTopics();
+}
+
+function applyReadingReplacements(text, replacements) {
+  return replacements.reduce((currentText, [pattern, replacement]) => currentText.replace(pattern, replacement), text);
+}
+
+function adaptReadingText(text) {
+  const profile = getActiveAgeProfile();
+  if (!text) return "";
+  if (profile.readingMode === "balanced") {
+    return applyReadingReplacements(text, balancedReadingReplacements);
+  }
+  if (profile.readingMode === "reflective") {
+    return applyReadingReplacements(text, reflectiveReadingReplacements);
+  }
+  return text;
+}
+
+function formatStoryHtml(text) {
+  const sentences = (text.match(/[^.!?]+[.!?]+(?:["']+)?|[^.!?]+$/g) || [text]).map(sentence => sentence.trim()).filter(Boolean);
+  const groupSize = selectedAgeProfileId === "little-lambs" ? 2 : 3;
+  const paragraphs = [];
+
+  for (let i = 0; i < sentences.length; i += groupSize) {
+    paragraphs.push(`<p>${sentences.slice(i, i + groupSize).join(" ")}</p>`);
+  }
+
+  return paragraphs.join("");
+}
+
+function syncLegacyAllyTokens() {
+  const lastCompletedDate = localStorage.getItem("catholic-quest-completed-date");
+
+  if (lastCompletedDate) {
+    awardAllyTokens(`daily-quest:${lastCompletedDate}`, ALLY_TOKEN_AWARDS.dailyQuest);
+  }
+
+  completedSingaporeMissions.forEach(missionId => {
+    awardAllyTokens(`singapore-mission:${missionId}`, ALLY_TOKEN_AWARDS.singaporeMission);
+  });
+
+  earnedBadges.forEach(topicId => {
+    awardAllyTokens(`quiz-badge:${topicId}`, ALLY_TOKEN_AWARDS.quizBadge);
+  });
+}
+
+function awardAllyTokens(eventKey, amount) {
+  if (!eventKey || awardedTokenEvents[eventKey]) return false;
+
+  awardedTokenEvents[eventKey] = amount;
+  allyTokens += amount;
+  localStorage.setItem("catholic-ally-token-events", JSON.stringify(awardedTokenEvents));
+  localStorage.setItem("catholic-ally-tokens", String(allyTokens));
+  updateAllyTokenDisplays();
+  return true;
+}
+
+function updateAllyTokenDisplays() {
+  allyTokenTotal.textContent = allyTokens;
+  allyTokenHomeTotal.textContent = allyTokens;
+  allyTokenBadgeTotal.textContent = allyTokens;
+}
 
 // Sound play helper with click/success sounds
 function playSound(type) {
@@ -890,32 +1182,37 @@ function switchTab(tabId) {
 // --- 7. DAILY QUEST CONTROLLER ---
 
 function loadDailyQuest() {
-  // Use day of the year/month to rotate quest steadily, or random
+  const profile = getActiveAgeProfile();
   const dayIndex = new Date().getDate() % dailyQuests.length;
-  dailyQuestText.innerHTML = dailyQuests[dayIndex];
+  dailyQuestText.textContent = adaptReadingText(dailyQuests[dayIndex]);
   
-  // Check if quest was already completed today
   const lastCompletedDate = localStorage.getItem("catholic-quest-completed-date");
   const today = new Date().toDateString();
   
   if (lastCompletedDate === today) {
-    markQuestCompleted(true);
+    awardAllyTokens(`daily-quest:${today}`, ALLY_TOKEN_AWARDS.dailyQuest);
+    markQuestCompleted(true, 0);
   } else {
     btnCompleteQuest.disabled = false;
-    btnCompleteQuest.innerHTML = "✅ I Completed My Quest!";
+    btnCompleteQuest.textContent = profile.readingMode === "reflective"
+      ? "✅ Mark today's quest complete"
+      : "✅ I Completed My Quest!";
     btnCompleteQuest.style.background = "";
   }
 
-  btnCompleteQuest.addEventListener("click", () => {
+  btnCompleteQuest.onclick = () => {
     playSound("success");
     localStorage.setItem("catholic-quest-completed-date", today);
-    markQuestCompleted(false);
-  });
+    const didAwardTokens = awardAllyTokens(`daily-quest:${today}`, ALLY_TOKEN_AWARDS.dailyQuest);
+    markQuestCompleted(false, didAwardTokens ? ALLY_TOKEN_AWARDS.dailyQuest : 0);
+  };
 }
 
-function markQuestCompleted(isQuiet) {
+function markQuestCompleted(isQuiet, awardedTokens) {
   btnCompleteQuest.disabled = true;
-  btnCompleteQuest.innerHTML = "🎉 Splendid Job, Holy Saint Helper! 🌟";
+  btnCompleteQuest.textContent = awardedTokens > 0
+    ? `🎉 Quest complete! +${awardedTokens} Ally Tokens`
+    : "🎉 Quest complete for today!";
   btnCompleteQuest.style.background = "#81C784";
   
   if (!isQuiet) {
@@ -952,6 +1249,7 @@ function completeSingaporeMission(missionId) {
 
   completedSingaporeMissions.push(missionId);
   localStorage.setItem("catholic-singapore-missions", JSON.stringify(completedSingaporeMissions));
+  awardAllyTokens(`singapore-mission:${missionId}`, ALLY_TOKEN_AWARDS.singaporeMission);
   playSound("success");
   updateSingaporeMissionBoard();
 
@@ -985,6 +1283,7 @@ function updateSingaporeMissionBoard() {
 // --- 9. PARABLES STORYBOOK CONTROLLER ---
 
 function renderParables() {
+  const profile = getActiveAgeProfile();
   parablesCardContainer.innerHTML = "";
   parablesData.forEach(p => {
     const card = document.createElement("article");
@@ -997,8 +1296,8 @@ function renderParables() {
       </div>
       <span class="parable-ref">${p.ref}</span>
       <h3>${p.title}</h3>
-      <p>${p.teaser}</p>
-      <span class="parable-teaser-tag">✨ Open Storybook</span>
+      <p>${adaptReadingText(p.teaser)}</p>
+      <span class="parable-teaser-tag">${profile.parableCardCta}</span>
     `;
     
     // Open modal on click
@@ -1012,16 +1311,16 @@ function renderParables() {
 }
 
 function openParableModal(p) {
+  const adaptedStory = adaptReadingText(p.story);
   playSound("click");
   
-  // Set modal elements
   parableModalTitle.innerText = p.title;
   modalParableReference.innerText = p.ref;
   modalParableSvg.innerHTML = p.illustrationSvg;
-  modalParableStory.innerHTML = p.story;
-  modalParableCatholicLesson.innerHTML = p.catholicLesson;
-  modalParableSacramentText.innerHTML = p.sacramentText;
-  modalParablePrayer.innerHTML = p.prayer;
+  modalParableStory.innerHTML = formatStoryHtml(adaptedStory);
+  modalParableCatholicLesson.textContent = adaptReadingText(p.catholicLesson);
+  modalParableSacramentText.textContent = adaptReadingText(p.sacramentText);
+  modalParablePrayer.textContent = adaptReadingText(p.prayer);
 
   // Reset Subtabs
   storySubtabs.forEach(tab => tab.classList.remove("active"));
@@ -1044,7 +1343,7 @@ function openParableModal(p) {
   });
 
   // Setup Read-To-Me logic
-  btnNarrate.onclick = () => startNarration(p.story);
+  btnNarrate.onclick = () => startNarration(adaptedStory);
   btnStopNarrate.onclick = () => stopNarration();
 }
 
@@ -1059,6 +1358,7 @@ btnCloseParableModal.onclick = () => {
 // --- 10. BEATITUDES MEADOW CONTROLLER ---
 
 function renderMeadow() {
+  const profile = getActiveAgeProfile();
   meadowFlowersContainer.innerHTML = "";
   beatitudesData.forEach((b, index) => {
     const flower = document.createElement("div");
@@ -1073,7 +1373,7 @@ function renderMeadow() {
         <div class="flower-leaf-right"></div>
       </div>
       <div class="flower-pot"></div>
-      <div class="meadow-card-label">Guideline #${index + 1}</div>
+      <div class="meadow-card-label">${profile.meadowLabelPrefix} #${index + 1}</div>
     `;
 
     flower.addEventListener("click", () => openBeatitudeModal(b));
@@ -1088,16 +1388,15 @@ function renderMeadow() {
 function openBeatitudeModal(b) {
   playSound("click");
 
-  // Fill in content
   beatitudeModalEmoji.innerText = b.emoji;
   beatitudeModalTitle.innerText = b.title;
   beatitudeModalVerse.innerText = b.verse;
-  beatitudeModalExplanation.innerText = b.explanation;
-  beatitudeModalQuest.innerText = b.quest;
+  beatitudeModalExplanation.innerText = adaptReadingText(b.explanation);
+  beatitudeModalQuest.innerText = adaptReadingText(b.quest);
   beatitudeModalSaintEmoji.innerText = b.saintEmoji;
   beatitudeModalSaintName.innerText = b.saintName;
-  beatitudeModalSaintDesc.innerText = b.saintDesc;
-  beatitudeModalPrayer.innerText = b.prayer;
+  beatitudeModalSaintDesc.innerText = adaptReadingText(b.saintDesc);
+  beatitudeModalPrayer.innerText = adaptReadingText(b.prayer);
 
   // Show
   beatitudeModal.classList.remove("hide");
@@ -1122,6 +1421,7 @@ function setupSpeechSynthesis() {
 }
 
 function startNarration(text) {
+  const profile = getActiveAgeProfile();
   // Cancel current
   stopNarration();
 
@@ -1133,7 +1433,6 @@ function startNarration(text) {
   // Prepare text reading
   speechUtterance = new SpeechSynthesisUtterance(text);
   
-  // High-fidelity smart scoring algorithm for gentle, warm, natural female voices
   const voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith("en"));
   let bestVoice = null;
   let highestScore = -1;
@@ -1142,32 +1441,28 @@ function startNarration(text) {
     const name = voice.name.toLowerCase();
     let score = 0;
     
-    // Prioritize child-friendly regional English
-    if (voice.lang.includes("en-US") || voice.lang.includes("en-GB") || voice.lang.includes("en-AU")) {
-      score += 15;
+    if (voice.lang.includes("en-SG")) {
+      score += 30;
+    } else if (voice.lang.includes("en-AU") || voice.lang.includes("en-GB")) {
+      score += 22;
+    } else if (voice.lang.includes("en-US")) {
+      score += 18;
     }
     
-    // Premium Cloud-Based Natural Voices (Edge Natural/Online voices sound like real bedtime storytellers!)
-    if (name.includes("online") || name.includes("natural")) {
-      score += 45;
+    if (name.includes("online") || name.includes("natural") || name.includes("neural")) {
+      score += 40;
     }
     
-    // Target ultra-natural premium female voices specifically
-    if (name.includes("aria") || name.includes("jenny") || name.includes("sonia") || name.includes("libby") || name.includes("natasha")) {
-      score += 60; // Top-tier Edge premium natural female
-    } else if (name.includes("google us english") || name.includes("google uk english female")) {
-      score += 50; // Premium Google Chrome female
-    } else if (name.includes("samantha") || name.includes("karen") || name.includes("siri") || name.includes("premium")) {
-      score += 40; // Apple macOS/iOS friendly female
-    } else if (name.includes("zira") || name.includes("hazel") || name.includes("susan") || name.includes("heera")) {
-      score += 30; // Offline fallback female voices
-    } else if (name.includes("female") || name.includes("woman") || name.includes("girl") || name.includes("warm") || name.includes("gentle")) {
-      score += 20; // General female indicator
+    if (name.includes("aria") || name.includes("jenny") || name.includes("sonia") || name.includes("libby") || name.includes("natasha") || name.includes("samantha")) {
+      score += 20;
     }
     
-    // Strictly penalize robotic, deep, or standard male voices for a softer kid-friendly storytelling tone
-    if (name.includes("david") || name.includes("male") || name.includes("guy") || name.includes("george") || name.includes("ravi") || name.includes("mark") || name.includes("clara")) {
-      score -= 40;
+    if (name.includes("child") || name.includes("warm") || name.includes("friendly") || name.includes("soft")) {
+      score += 12;
+    }
+
+    if (name.includes("robot") || name.includes("desktop")) {
+      score -= 25;
     }
     
     if (score > highestScore) {
@@ -1176,18 +1471,15 @@ function startNarration(text) {
     }
   });
 
-  // Fallback to any voice if no optimal English female voice is found
   const selectedVoice = bestVoice || window.speechSynthesis.getVoices()[0];
                       
   if (selectedVoice) {
     speechUtterance.voice = selectedVoice;
-    console.log("Selected premium kid-friendly voice: " + selectedVoice.name + " (" + selectedVoice.lang + ")");
+    console.log("Selected narration voice: " + selectedVoice.name + " (" + selectedVoice.lang + ")");
   }
   
-  // Rate: Set to a gentle, comforting 0.85 rate (slightly slower for clear understanding by kids)
-  speechUtterance.rate = 0.85;
-  // Pitch: Brighter and friendlier (slightly raised to 1.06)
-  speechUtterance.pitch = 1.06;
+  speechUtterance.rate = profile.narrationRate;
+  speechUtterance.pitch = profile.narrationPitch;
 
 
   speechUtterance.onend = () => {
@@ -1214,6 +1506,7 @@ function stopNarration() {
 // --- 12. QUIZ ARENA CONTROLLER ---
 
 function renderQuizTopics() {
+  const profile = getActiveAgeProfile();
   quizTopicsContainer.innerHTML = "";
   Object.keys(quizzesData).forEach(topicId => {
     const qData = quizzesData[topicId];
@@ -1224,7 +1517,7 @@ function renderQuizTopics() {
     card.innerHTML = `
       <span class="topic-badge-icon">${isEarned ? "🏆" : "🎮"}</span>
       <h4>${qData.badgeTitle} Quiz</h4>
-      <p>Answer 3 quick questions about this topic to earn your badge!</p>
+      <p>${profile.quizCardText}</p>
       <span class="topic-status-tag ${isEarned ? "earned" : ""}">${isEarned ? "✅ Badge Earned!" : "▶ Play Quiz!"}</span>
     `;
 
@@ -1262,7 +1555,7 @@ function loadQuizQuestion() {
 
   // Question Info
   quizQNumber.innerText = `Question ${currentQuestionIndex + 1} of ${totalQ}`;
-  quizQuestionText.innerText = qObj.question;
+  quizQuestionText.innerText = adaptReadingText(qObj.question);
 
   // Options
   quizOptionsList.innerHTML = "";
@@ -1271,7 +1564,7 @@ function loadQuizQuestion() {
     btn.className = "option-btn";
     btn.innerHTML = `
       <span class="option-prefix">${String.fromCharCode(65 + index)}</span>
-      <span class="option-label-text">${opt}</span>
+      <span class="option-label-text">${adaptReadingText(opt)}</span>
     `;
     btn.onclick = () => selectQuizOption(index, btn);
     quizOptionsList.appendChild(btn);
@@ -1305,14 +1598,15 @@ function selectQuizOption(selectedIndex, buttonElement) {
 }
 
 function showQuestionFeedback(isCorrect) {
+  const profile = getActiveAgeProfile();
   quizFeedback.classList.remove("hide");
   
   if (isCorrect) {
     feedbackIcon.innerText = "🎉";
-    feedbackText.innerText = "Wow! Splendid! You got it completely right! 🌟";
+    feedbackText.innerText = profile.successFeedback;
   } else {
-    feedbackIcon.innerText = "🧸";
-    feedbackText.innerText = "Ah, nice try! We learn from mistakes. Let's keep going!";
+    feedbackIcon.innerText = profile.readingMode === "reflective" ? "🕯" : "🧸";
+    feedbackText.innerText = profile.encouragementFeedback;
   }
   
   btnNextQuestion.onclick = () => {
@@ -1335,6 +1629,7 @@ function advanceQuiz() {
 }
 
 function showQuizVictory() {
+  const profile = getActiveAgeProfile();
   quizActiveScreen.classList.add("hide");
   quizVictoryScreen.classList.remove("hide");
   
@@ -1346,11 +1641,15 @@ function showQuizVictory() {
   wonBadgeContainer.innerHTML = quizInfo.badgeSvg;
   wonBadgeTitle.innerText = quizInfo.badgeTitle;
   wonBadgeDescription.innerText = quizInfo.badgeDesc;
+  victoryMessage.innerText = profile.victoryMessage;
 
-  // Add badge to earned lists if not already there
   if (!earnedBadges.includes(activeQuizTopic)) {
     earnedBadges.push(activeQuizTopic);
     localStorage.setItem("catholic-kids-badges", JSON.stringify(earnedBadges));
+    const didAwardTokens = awardAllyTokens(`quiz-badge:${activeQuizTopic}`, ALLY_TOKEN_AWARDS.quizBadge);
+    if (didAwardTokens) {
+      victoryMessage.innerText = `${profile.victoryMessage} +${ALLY_TOKEN_AWARDS.quizBadge} Ally Tokens earned!`;
+    }
     updateBadgeCounters();
   }
 
