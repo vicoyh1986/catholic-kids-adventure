@@ -1478,7 +1478,6 @@ function startNarration(text) {
                       
   if (selectedVoice) {
     speechUtterance.voice = selectedVoice;
-    console.log("Selected narration voice: " + selectedVoice.name + " (" + selectedVoice.lang + ")");
   }
   
   speechUtterance.rate = profile.narrationRate;
