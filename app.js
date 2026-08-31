@@ -581,6 +581,8 @@ let discussionPromptIndex = 0;
 let soundGardenEnabled = localStorage.getItem("catholic-sound-garden-enabled") === "true";
 let soundGardenContext = null;
 let soundGardenTimer = null;
+let narrationOriginalText = null;
+let narrationStoryEl = null;
 
 
 // --- 3. DOM ELEMENT REFERENCES ---
@@ -676,7 +678,13 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSpeechSynthesis();
   setupSingaporeFaithTrail();
   setupSoundGarden();
-  
+
+  // Animation enhancements — run after renders so elements exist
+  initScrollReveal();
+  initAmbientParticles();
+  startScriptureBanner();
+  initMeadowDecorations();
+
   // Connect home buttons to tabs
   document.getElementById("btn-start-parables").addEventListener("click", () => switchTab("tab-parables"));
   document.getElementById("btn-start-beatitudes").addEventListener("click", () => switchTab("tab-beatitudes"));
@@ -878,6 +886,17 @@ function switchTab(tabId) {
     }
   });
 
+  // Trigger scroll-reveal for any elements in the newly visible panel that the
+  // IntersectionObserver may have missed while the panel was hidden (display:none).
+  const activePanel = document.getElementById(targetSectionId);
+  if (activePanel) {
+    setTimeout(() => {
+      activePanel.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => {
+        el.classList.add('revealed');
+      });
+    }, 80);
+  }
+
   // Special hooks
   if (tabId === "tab-badges") {
     renderBadgeBook();
@@ -988,7 +1007,7 @@ function renderParables() {
   parablesCardContainer.innerHTML = "";
   parablesData.forEach(p => {
     const card = document.createElement("article");
-    card.className = "parable-card";
+    card.className = "parable-card scroll-reveal";
     card.id = `card-${p.id}`;
     card.setAttribute("tabindex", "0");
     card.innerHTML = `
@@ -1031,6 +1050,7 @@ function openParableModal(p) {
 
   // Show modal
   parableModal.classList.remove("hide");
+  enhanceModalEntrance(parableModal);
   document.body.style.overflow = "hidden"; // Prevent background scrolling
 
   // Setup click triggers on subtabs
@@ -1062,7 +1082,7 @@ function renderMeadow() {
   meadowFlowersContainer.innerHTML = "";
   beatitudesData.forEach((b, index) => {
     const flower = document.createElement("div");
-    flower.className = "meadow-item-card";
+    flower.className = "meadow-item-card scroll-reveal";
     flower.setAttribute("tabindex", "0");
     flower.innerHTML = `
       <div class="flower-head">
@@ -1101,6 +1121,7 @@ function openBeatitudeModal(b) {
 
   // Show
   beatitudeModal.classList.remove("hide");
+  enhanceModalEntrance(beatitudeModal);
   document.body.style.overflow = "hidden";
 }
 
@@ -1189,12 +1210,42 @@ function startNarration(text) {
   // Pitch: Brighter and friendlier (slightly raised to 1.06)
   speechUtterance.pitch = 1.06;
 
+  // Word-by-word highlighting using boundary events
+  narrationStoryEl = document.getElementById('modal-parable-story');
+  if (narrationStoryEl && text) {
+    narrationOriginalText = text;
+    const wrappedHTML = text.replace(/\S+/g, (word, offset) => {
+      return `<span class="story-word" data-start="${offset}">${word}</span>`;
+    });
+    narrationStoryEl.innerHTML = wrappedHTML;
+  }
+
+  speechUtterance.onboundary = (event) => {
+    if (event.name !== 'word' || !narrationStoryEl) return;
+    const prev = narrationStoryEl.querySelector('.narration-word-highlight');
+    if (prev) prev.classList.remove('narration-word-highlight');
+    const span = narrationStoryEl.querySelector(`.story-word[data-start="${event.charIndex}"]`);
+    if (span) {
+      span.classList.add('narration-word-highlight');
+      span.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  };
 
   speechUtterance.onend = () => {
+    if (narrationStoryEl && narrationOriginalText) {
+      narrationStoryEl.innerHTML = narrationOriginalText;
+      narrationOriginalText = null;
+      narrationStoryEl = null;
+    }
     stopNarration();
   };
 
   speechUtterance.onerror = () => {
+    if (narrationStoryEl && narrationOriginalText) {
+      narrationStoryEl.innerHTML = narrationOriginalText;
+      narrationOriginalText = null;
+      narrationStoryEl = null;
+    }
     stopNarration();
   };
 
@@ -1205,6 +1256,12 @@ function stopNarration() {
   isSpeaking = false;
   if (window.speechSynthesis) {
     window.speechSynthesis.cancel();
+  }
+  // Restore narration story element if mid-read
+  if (narrationStoryEl && narrationOriginalText) {
+    narrationStoryEl.innerHTML = narrationOriginalText;
+    narrationOriginalText = null;
+    narrationStoryEl = null;
   }
   btnNarrate.classList.remove("hide");
   btnStopNarrate.classList.add("hide");
@@ -1298,6 +1355,10 @@ function selectQuizOption(selectedIndex, buttonElement) {
   } else {
     // Wrong!
     buttonElement.classList.add("wrong");
+    buttonElement.classList.add("answer-shake");
+    buttonElement.addEventListener('animationend', () => {
+      buttonElement.classList.remove('answer-shake');
+    }, { once: true });
     // Show correct one quietly
     optionButtons[correctIdx].classList.add("correct");
     showQuestionFeedback(false);
@@ -1411,23 +1472,173 @@ function createConfettiShower() {
   if (!confettiContainer) return;
   confettiContainer.innerHTML = "";
   
-  const colors = ["#FF5252", "#FFD54F", "#81C784", "#4FC3F7", "#BA68C8", "#FF8A65"];
+  const colors  = ["#FF5252", "#FFD54F", "#81C784", "#4FC3F7", "#BA68C8", "#FF8A65"];
+  const symbols = ['✝️', '⭐', '💛', '🌟', '✨', '❤️'];
+  const TOTAL   = 70;   // total pieces
+  const SYMBOL_EVERY = 6; // ~1-in-6 pieces is a symbol (cross/star/heart)
   
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < TOTAL; i++) {
+    const isSymbol = i % SYMBOL_EVERY === 0;
     const piece = document.createElement("div");
-    piece.className = "confetti-piece";
     
-    // Style particle
-    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    piece.style.left = `${Math.random() * 100}%`;
-    piece.style.top = `${Math.random() * -10}px`;
-    piece.style.width = `${Math.random() * 8 + 8}px`;
-    piece.style.height = `${Math.random() * 6 + 12}px`;
-    
-    // Random rot & physics animation timing
-    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
-    piece.style.animation = `confettiFall ${Math.random() * 2 + 1.5}s ease-out forwards`;
+    if (isSymbol) {
+      piece.className = "confetti-symbol";
+      piece.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      piece.style.left = `${Math.random() * 100}%`;
+      piece.style.top = `${Math.random() * -15}px`;
+      piece.style.animation = `confettiFall ${Math.random() * 2 + 1.5}s ease-out forwards`;
+    } else {
+      piece.className = "confetti-piece";
+      piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.left = `${Math.random() * 100}%`;
+      piece.style.top = `${Math.random() * -10}px`;
+      piece.style.width = `${Math.random() * 8 + 8}px`;
+      piece.style.height = `${Math.random() * 6 + 12}px`;
+      piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+      piece.style.animation = `confettiFall ${Math.random() * 2 + 1.5}s ease-out forwards`;
+    }
     
     confettiContainer.appendChild(piece);
   }
+}
+
+
+// =============================================
+//  ANIMATION ENHANCEMENT FUNCTIONS (Section 15+)
+// =============================================
+
+
+// --- 15. SCROLL REVEAL (IntersectionObserver) ---
+
+function initScrollReveal() {
+  const revealEls = document.querySelectorAll('.scroll-reveal');
+
+  if (!('IntersectionObserver' in window)) {
+    // Fallback: reveal everything immediately
+    revealEls.forEach(el => el.classList.add('revealed'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }
+  );
+
+  revealEls.forEach(el => observer.observe(el));
+}
+
+
+// --- 16. AMBIENT FLOATING GOLD PARTICLES ---
+
+function initAmbientParticles() {
+  const layer = document.getElementById('particle-layer');
+  if (!layer) return;
+
+  const symbols = ['✦', '✦', '✝', '★', '✦', '✦', '·', '✦', '✦'];
+  const count   = window.innerWidth < 600 ? 10 : 20;
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('span');
+    el.className = 'ambient-particle';
+    el.setAttribute('aria-hidden', 'true');
+    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+    const size    = Math.random() * 13 + 8;
+    const left    = Math.random() * 100;
+    const dur     = Math.random() * 20 + 14;
+    const delay   = -(Math.random() * dur);          // start mid-flight
+    const opacity = (Math.random() * 0.15 + 0.05).toFixed(2);
+
+    el.style.cssText = `
+      font-size: ${size}px;
+      left: ${left}%;
+      bottom: -40px;
+      animation-duration: ${dur}s;
+      animation-delay: ${delay}s;
+      --p-opacity: ${opacity};
+    `;
+    layer.appendChild(el);
+  }
+}
+
+
+// --- 17. CYCLING SCRIPTURE VERSE BANNER ---
+
+const scriptureVerses = [
+  '"I am the Good Shepherd. I know my sheep and my sheep know me." — John 10:14',
+  '"Let the children come to me, for the kingdom of God belongs to them." — Mark 10:14',
+  '"Love one another as I have loved you." — John 15:12',
+  '"I am the Way, the Truth, and the Life." — John 14:6',
+  '"God so loved the world that He gave His only Son." — John 3:16',
+  '"Blessed are the pure in heart, for they shall see God." — Matthew 5:8',
+  '"The Lord is my Shepherd; I shall not want." — Psalm 23:1',
+  '"Ask and it will be given; seek and you will find." — Matthew 7:7',
+  '"With God, nothing is impossible." — Luke 1:37',
+  '"Do not be afraid; I am with you always." — Matthew 28:20',
+];
+
+let scriptureVerseIndex = 0;
+let scriptureIntervalId = null;
+
+function startScriptureBanner() {
+  if (scriptureIntervalId) return;  // guard against double-init
+  const bannerEl = document.getElementById('scripture-verse-text');
+  if (!bannerEl) return;
+
+  bannerEl.textContent = scriptureVerses[0];
+
+  scriptureIntervalId = setInterval(() => {
+    scriptureVerseIndex = (scriptureVerseIndex + 1) % scriptureVerses.length;
+    const el = document.getElementById('scripture-verse-text');
+    if (!el) return;
+    // Restart CSS animation by toggling
+    el.style.animation = 'none';
+    el.offsetHeight; // force reflow
+    el.style.animation = '';
+    el.textContent = scriptureVerses[scriptureVerseIndex];
+  }, 7000);
+}
+
+
+// --- 18. MEADOW BUTTERFLIES & DOVES ---
+
+function initMeadowDecorations() {
+  const meadow = document.querySelector('.meadow-playground');
+  if (!meadow) return;
+
+  const creatures = [
+    { emoji: '🦋', cls: 'meadow-creature-butterfly', top: '16%', left: '10%',  dur: '7s',  delay: '0s'  },
+    { emoji: '🕊️', cls: 'meadow-creature-dove',      top: '10%', left: '62%',  dur: '9s',  delay: '-3s' },
+    { emoji: '🦋', cls: 'meadow-creature-butterfly', top: '25%', left: '80%',  dur: '8s',  delay: '-2s' },
+    { emoji: '🦋', cls: 'meadow-creature-butterfly', top: '20%', left: '42%',  dur: '11s', delay: '-6s' },
+    { emoji: '🕊️', cls: 'meadow-creature-dove',      top: '8%',  left: '28%',  dur: '10s', delay: '-1s' },
+  ];
+
+  creatures.forEach(c => {
+    const el = document.createElement('div');
+    el.className    = `meadow-creature ${c.cls}`;
+    el.textContent  = c.emoji;
+    el.style.cssText = `top:${c.top}; left:${c.left}; animation-duration:${c.dur}; animation-delay:${c.delay};`;
+    el.setAttribute('aria-hidden', 'true');
+    meadow.appendChild(el);
+  });
+}
+
+
+// --- 19. MODAL BOUNCE-IN ENTRANCE ---
+
+function enhanceModalEntrance(overlayEl) {
+  const card = overlayEl.querySelector('.modal-card');
+  if (!card) return;
+  // Remove class, force reflow, re-add to restart animation
+  card.classList.remove('modal-bounce-in');
+  void card.offsetWidth;
+  card.classList.add('modal-bounce-in');
 }
