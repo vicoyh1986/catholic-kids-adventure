@@ -17,6 +17,9 @@
 </head>
 <body>
 
+  <!-- Ambient Gold Particle Layer -->
+  <div id="particle-layer" aria-hidden="true"></div>
+
   <!-- Background Bubble & Cloud Effects -->
   <div class="sky-clouds" aria-hidden="true">
     <div class="cloud cloud-1">☁️</div>
@@ -34,7 +37,7 @@
   <header class="main-header">
     <div class="header-container">
       <div class="header-logo" id="logo-container">
-        <div class="cross-icon animate-bounce">
+        <div class="cross-icon">
           <svg viewBox="0 0 100 100" width="45" height="45">
             <defs>
               <linearGradient id="cross-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -95,6 +98,12 @@
     
     <!-- 1. HOME SECTION -->
     <section id="home-section" class="tab-content-panel active" role="tabpanel" aria-labelledby="tab-home">
+
+      <!-- Cycling Scripture Verse Banner -->
+      <div class="scripture-banner" aria-live="polite" aria-label="Scripture verse of the moment">
+        <span class="scripture-verse-text" id="scripture-verse-text">Loading God's word...</span>
+      </div>
+
       <!-- Welcome Hero Card -->
       <div class="hero-card">
         <div class="hero-illustration">
@@ -159,22 +168,22 @@
 
       <!-- Feature Highlight Sections -->
       <div class="features-grid">
-        <div class="feat-card card-purple">
+        <div class="feat-card card-purple scroll-reveal">
           <span class="feat-emoji">⛪</span>
           <h4>Catholic Angle</h4>
           <p>Learn how Jesus' parables connect to the Holy Mass, the Sacraments, Confession, and the Saints!</p>
         </div>
-        <div class="feat-card card-blue">
+        <div class="feat-card card-blue scroll-reveal">
           <span class="feat-emoji">🔊</span>
           <h4>Read-To-Me Narrator</h4>
           <p>Can't read all the words yet? Just click the audio companion button on any story to have it read out loud!</p>
         </div>
-        <div class="feat-card card-gold">
+        <div class="feat-card card-gold scroll-reveal">
           <span class="feat-emoji">🏆</span>
           <h4>Faith Badges</h4>
           <p>Solve simple, interactive quizzes in the Arena to unlock beautiful Saint stickers in your personal Badge Book!</p>
         </div>
-        <div class="feat-card card-green">
+        <div class="feat-card card-green scroll-reveal">
           <span class="feat-emoji">🦁</span>
           <h4>Singapore Faith Trail</h4>
           <p>Practise Jesus' love at home, in school, at church, and around our shared neighbourhoods.</p>
@@ -185,7 +194,7 @@
     <!-- 2. PARABLES SECTION -->
     <section id="parables-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-parables">
       <div class="section-intro">
-        <h2>📖 The Parables of Jesus</h2>
+        <h2><span class="shine-heading">📖 The Parables of Jesus</span></h2>
         <p class="intro-p">
           Jesus loved to teach using <strong>parables</strong>—everyday stories about seeds, sheep, coins, and families that hold huge treasures of truth about God's Kingdom. Click any story card below to open the interactive storybook!
         </p>
@@ -200,7 +209,7 @@
     <!-- 3. BEATITUDES SECTION -->
     <section id="beatitudes-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-beatitudes">
       <div class="section-intro">
-        <h2>🌸 The Beatitudes Meadow</h2>
+        <h2><span class="shine-heading">🌸 The Beatitudes Meadow</span></h2>
         <p class="intro-p">
           On a high, breezy mountain, Jesus sat down with His disciples and taught them the <strong>Beatitudes</strong>—the eight holy guidelines to true, bubbling joy in God's family.
         </p>
@@ -341,7 +350,7 @@
     <!-- 5. QUIZ SECTION -->
     <section id="quiz-section" class="tab-content-panel" role="tabpanel" aria-labelledby="tab-quiz">
       <div class="section-intro">
-        <h2>🎮 The Faith Explorer Quiz Arena</h2>
+        <h2><span class="shine-heading">🎮 The Faith Explorer Quiz Arena</span></h2>
         <p class="intro-p">
           Are you ready to test what you have learned? Choose a topic below to enter the Arena. Answer the questions correctly to earn beautiful Saint Stickers in your Badge Book!
         </p>
